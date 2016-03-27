@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+    <!--[if lt IE 8 ]><html class="no-js ie ie7" lang="en"> <![endif]-->
+    <!--[if IE 8 ]><html class="no-js ie ie8" lang="en"> <![endif]-->
+    <!--[if (gte IE 8)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+    <head>
+        <!--- basic page needs -->
+        <meta charset="utf-8">
+    	<title>hercarrdroid</title>
+    	<meta name="description" content="">
+    	<meta name="author" content="">
+        <!-- mobile specific metas -->
+    	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    	<!-- css -->
+        <link rel="stylesheet" href="css/default.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/responsive.css">
+        <link rel="stylesheet" href="css/animate.css">
+        <link rel="stylesheet" href="css//owl.carousel.css">
+   		<link rel="stylesheet" href="css//owl.theme.css">
+        <!-- script -->
+    	<script src="js/modernizr.js"></script>
+       <!-- favicons -->
+    	<link rel="shortcut icon" href="images/qacg.ico" >
+    </head>
+    <body>
+        <!-- preloader --> 
+        <div id="preloader">
+            <div class="loader"></div>    
+        </div>
+        <!--preloader end-->
+        <!-- header section -->
+        <header id="home">
+            <nav id="m-nav">
+                <a class="mobile-btn" href="#m-nav" title="Show navigation">Show navigation</a>
+                <a class="mobile-btn" href="#" title="Hide navigation">Hide navigation</a>
+                <ul id="nav" class="nav">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li class="current"><a class="smoothscroll" href="#">Sesi&oacute;n # 1</a></li>
+                 </ul>
+            </nav> 
+            <div class="row banner">
+                <div class="banner-text">
+                    <h1 class="responsive-headline wow zoomIn">Construcción de una aplicaci&oacute;n</span></h1>
+                    <h3 class="wow fadeInUp">
+                        Sesi&oacute;n # 1                        
+                    </h3>
+                    <hr />
+                    <h3 class="wow fadeInUp">Quality &amp; Knowledge on IT Services</h3>
+                    <h3 class="wow fadeInUp">Víctor Hernández</h3>
+                    <h3 class="wow fadeInUp">victor.hernandez@qacg.com | hercarr.mx@gmail.com</h3>
+                    <hr />
+                </div>
+            </div>
+            <p class="scrolldown">
+                <a class="smoothscroll" href="#about"><i class="fa fa-angle-double-down"></i></a>
+            </p>
+            <div class="header-overlay"></div>
+            <!-- social section -->
+            <div id="social">
+                <div class="row social-container">
+                    <ul class="social">                       
+                       <li><a href="https://twitter.com/hercarrmx" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                       <li><a href="https://www.facebook.com/hercarrmx" target="_blank"><i class="fa fa-facebook"></i></a></li>                       
+                       <li><a href="https://github.com/hercarr" target="_blank"><i class="fa fa-github"></i></a></li>                       
+                    </ul>
+                </div
+            </div>
+            <!-- social end -->
+       	</header>
+       	<!-- header end -->
+       	<!-- architecture topic -->
+   		<section id="topic">
+      	<div class="row bio-container">
+        	<div class="twelve columns bio-inner">
+	         	<div class="six columns bio-left"> 
+	         		<h2>Arquitectura de la plataforma Android</h2>
+	         		<div class="pp-container">	              		
+	              		<img class="picture wow zoomIn"  src="images/phone-map.png" alt="" />
+	        		</div> <!-- Profile Picture -->
+	         	</div>
+	         	<div class="six columns main-col wow fadeIn">
+		          	<div class="arrow-left"></div>
+		            <p>
+		            	<h3>
+		            		Es importante conocer como se encuentra estructurado Android como sistema operativo. Su arquitectura esta conformada en 5 capas, donde cada una de ellas utiliza componentes de la capa inferior para realizar sus funciones
+		            	</h3>
+	            		<div id="architecture-slides" class="owl-carousel">
+          					<div> 
+	            				<blockquote>
+	                				<p>El núcleo de linux actúa como capa de abstracción entre el hardware y el resto de las capas de la arquitectura, para permitir el uso de las diferentes características físicas del teléfono, además, se encarga de gestionar los recursos del mismo, por ejemplo: batería, memoria, procesos de ejecución, conexiones a redes, entre otras</p>
+	                 				<cite>linux kernel</cite>
+	          					</blockquote> 
+	      					</div>
+	      					<div> 
+	            				<blockquote>
+	                				<p>Escritas en C o C++ y compiladas para la arquitectura hardware específica del teléfono, tienen el objetivo de proporcionar a la capa de aplicaciones funcionalidad que se repite constantemente, por ejemplo: OpenGL --> motor de gráficos, multimedia --> audio, imagen & video, sqlite --> base de datos, entre otras</p>
+	                 				<cite>native libraries</cite>
+	          					</blockquote> 
+	      					</div>
+	      					<div> 
+	            				<blockquote>
+	                				<p>El entorno de ejecución de android trabaja de la mano con las librerías nativas, utilizando una variación de la máquina virtual de java denominada dalvik, la cual ejecuta las aplicaciones escritas en java, es importante mencionar que no es compatible con el bytecode generador por la JVM - los ejecutables que se generan con el SDK de android tienen la extensión .dex</p>
+	                 				<cite>dalvik / android runtime</cite>
+	          					</blockquote> 
+	      					</div>
+	      					<div> 
+	            				<blockquote>
+	                				<p>Se encuentran todas las clases & servicios que utilizan directamente las aplicaciones para realizar sus funciones: activity manager, window manager, content providers, view system, notification manager, package manager, telephony manager, resource manager, location manager, sensor manager</p>
+	                 				<cite>application framework</cite>
+	          					</blockquote> 
+	      					</div>
+	      					<div> 
+	            				<blockquote>
+	                				<p>Todas las aplicaciones instaladas en el teléfono: fabricante & usuario. <span>Nosotros los desarrolladores android generamos contenido para este nivel utilizando la capa anterior: application framework</span></p>
+	                 				<cite>applications</cite>
+	          					</blockquote> 
+	      					</div>
+        				</div>
+		            </p>		          	
+		     	</div>
+      		</div>
+      	</div>
+   		</section>
+   		<!-- architecture topic end -->
+
+
+
+
+		<!-- content section -->
+       	<section id="agenda">
+        	<h1 class="section-title wow fadeInDown">Aplicación Android</h1>
+        	<div class="header-col content-header">
+				<h2><span>Nuevo proyecto</span></h2>
+            </div>            
+            <div class="row education">
+            	<p>
+            	Vamos a crear el proyecto base de nuestra aplicación Android, ejecutar Android Studio y realizar los siguientes pasos:            	
+            	</p>                
+            </div>            
+        </section>
+        <!-- content section end -->
+
+
+
+
+       	<!-- footer -->
+        <footer>
+            <div class="row">
+                <div class="twelve columns">
+                    <ul class="social-links">
+                        <li><a href="https://twitter.com/hercarrmx" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="https://www.facebook.com/hercarrmx" target="_blank"><i class="fa fa-facebook"></i></a></li>                        
+                        <li><a href="https://github.com/hercarr" target="_blank"><i class="fa fa-github"></i></a></li>
+                    </ul>
+                    <ul class="copyright">
+                        <li>hercarr.mx@gmail.com | 2016 | Ciudad de M&eacute;xico</li>
+                    </ul>
+                </div>
+                <div id="go-top"><a class="smoothscroll" title="Back to Top" href="#home"><i class="fa fa-chevron-up"></i></a></div>
+            </div>
+        </footer>
+        <!-- footer end-->
+        <!-- java script -->
+        <script src="js/jquery-2.1.1.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/waypoints.js"></script>
+        <script src="js/jquery.fittext.js"></script>
+        <script src="js/wow.min.js"></script>
+        <script src="js/jquery.nicescroll.min.js"></script>
+        <script src="js/script.js"></script>
+    </body>
+</html>
