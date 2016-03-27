@@ -35,7 +35,7 @@
                 <a class="mobile-btn" href="#" title="Hide navigation">Hide navigation</a>
                 <ul id="nav" class="nav">
                     <li><a href="index.html">Inicio</a></li>
-                    <li class="current"><a class="smoothscroll" href="#">Sesi&oacute;n # 1</a></li>
+                    <li class="current"><a class="smoothscroll" href="#" style="color: #ed5565;">Sesi&oacute;n # 1</a></li>
                  </ul>
             </nav> 
             <div class="row banner">
@@ -122,14 +122,13 @@
       	</div>
    		</section>
    		<!-- architecture topic end -->
-		<!-- content section -->
+		<!-- new project section -->
        	<section id="agenda">
         	<h1 class="section-title wow fadeInDown">Aplicación Android</h1>
         	<div class="header-col content-header">
 				<h2><span>Nuevo proyecto</span></h2>
             </div>            
             <div class="row education">
-            	<p>
             	Vamos a crear el proyecto base de nuestra aplicación Android, para ello ejecutar Android Studio y realizar los siguientes pasos:
             	<ol>
             		<li>Click en la opción <span>Start a new Android Studio Project</span> o <span>File &rarr; New &rarr; New Project</span> </li>
@@ -142,14 +141,57 @@
             		<li>Personalizar nuestra actividad con los valores default </li>
             		<li>Click en <span>Finish</span></li>            		
             	</ol>
-            	<p>
             	Android Studio comenzará a construir el proyecto, una vez termine de realizar ese proceso veremos una pantalla similar a la siguiente:
             	<div class="content-picture-container">	              		
               		<img class="content-picture wow zoomIn"  src="images/project/7-main.png" alt="new project" />
         		</div>
+            </div>
+
+
+
+
+
+            <div class="header-col content-header">
+				<h2><span>Ejecución de la aplicación</span></h2>
             </div>            
+            <div class="row education">
+            	Cuando estamos desarrollando una aplicación Android existen dos formas con las cuales ejecutar nuestra aplicación: <span>simuladores</span> o <span>dispositivos físicos</span>.
+            	<br /><br />
+            	Android Studio incluye una serie de simuladores o dispositivos virtuales que podemos utilizar para probar nuestras aplicaciones, la desventaja de estos es que consumen demasiados recursos por lo cual en una PC o laptop &quot;estándar&quot; son muy lentos de ejecutar.
+            	<br /><br />
+            	<span>Genymotion</span> es una herramienta que provee una solución a este problema, al ser un simulador más eficaz &amp; eficiente en comparación con los simuladores de Android Studio.
+            	<br />
+            	Para instalar Genymotion es necesario registrarse en <a href="https://www.genymotion.com/" target="_blank">https://www.genymotion.com/</a>
+            	<br />
+            	Posteriormente para descargarlo ingrese a <a href="https://www.genymotion.com/download/" target="_blank">https://www.genymotion.com/download/</a>
+            	<br />
+            	Para mayor información sobre genymotion visite <a href="https://docs.genymotion.com/Content/Home.htm" target="_blank">https://docs.genymotion.com/Content/Home.htm</a>
+            	<br />
+            	<span>Nota: Dependiendo la computadora, en ocasiones genymotion requiere que en el BIOS se encuentre activada la opción de virtualización.</span>
+            	<br />
+            	Una vez descargado e instalado agregue un dispositivo virtual, posteriormente en Android Studio:
+            	<ol>
+            		<li>De clic en el botón <span>Run o Debug app</span></li>
+            		<li>De la lista de dispositivos, seleccione el dispositivo Genymotion creado anteriormente</li>
+            		<li>De clic en el botón <span>OK</span>
+            	</ol>
+            	Android Studio realizará lo necesario para instalar la aplicación, una vez terminado el proceso verá una pantalla similar a la siguiente:
+            	<div class="content-picture-container">
+              		<img class="content-picture wow zoomIn" src="images/deploy/genymotion.png" alt="new project" style="height: 512px;" />
+        		</div>
+        		<br />
+        		Para <span>ejecutar la aplicación en un dispositivo físico</span> conecte el teléfono o tableta mediante USB a la computadora, posteriormente ejecute de nuevo los pasos descritos anteriormente, solo que en esta ocasión seleccione el dispositivo conectado.
+        		<br /><br />
+            	<span>Nota: Sí el dispositivo no aparece dentro del listado, posiblemente sea necesario instalar los controlador del mismo en la computadora.</span>
+            </div>
+
+
+
+
+
+
         </section>
-        <!-- content section end -->
+        <!-- new project section end -->
        	<!-- footer -->
         <footer>
             <div class="row">
