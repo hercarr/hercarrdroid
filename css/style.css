@@ -370,10 +370,14 @@ ul#nav li a:hover {
 
 #agenda .main-col { padding-right: 10%; }
 
-.education, .work, .skill, awards {
+.education, .work, .skill, .awards {
     margin-bottom: 48px;
     padding-bottom: 24px;
     border-bottom: 1px solid #E8E8E8;
+}
+
+.education span {
+    font-weight: bold;
 }
 
 #agenda .info {
@@ -722,6 +726,23 @@ ul#nav li a:hover {
 .content-header {
     margin-left: 10%;
     margin-bottom: 2%;
+}
+
+.content-picture-container {
+  display: block;
+  margin: 5px auto;
+  padding: 10px;
+  width: 90%;
+}
+
+.content-picture {
+  border: 6px solid #e91e63;
+  box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.1);
+  height: auto;
+  margin: 10px auto;
+  position: relative;
+  width: 100%;
+  z-index: 2;
 }
 
 /* footer */
