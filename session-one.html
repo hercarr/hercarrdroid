@@ -15,8 +15,9 @@
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/responsive.css">
         <link rel="stylesheet" href="css/animate.css">
-        <link rel="stylesheet" href="css//owl.carousel.css">
-   		<link rel="stylesheet" href="css//owl.theme.css">
+        <link href="css/prism.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/owl.carousel.css">
+   		<link rel="stylesheet" href="css/owl.theme.css">
         <!-- script -->
     	<script src="js/modernizr.js"></script>
        <!-- favicons -->
@@ -35,7 +36,7 @@
                 <a class="mobile-btn" href="#" title="Hide navigation">Hide navigation</a>
                 <ul id="nav" class="nav">
                     <li><a href="index.html">Inicio</a></li>
-                    <li class="current"><a class="smoothscroll" href="#" style="color: #ed5565;">Sesi&oacute;n # 1</a></li>
+                    <li class="current"><a class="smoothscroll" href="#agenda">Sesi&oacute;n # 1</a></li>
                  </ul>
             </nav> 
             <div class="row banner">
@@ -82,30 +83,30 @@
 		          	<div class="arrow-left"></div>
 		            <p>
 		            	<h3>
-		            		Es importante conocer como se encuentra estructurado Android como sistema operativo. Su arquitectura esta conformada en 5 capas, donde cada una de ellas utiliza componentes de la capa inferior para realizar sus funciones
+		            		Es importante conocer como se encuentra estructurado Android como sistema operativo. Su arquitectura esta conformada en 5 capas, donde cada una de ellas utiliza componentes de la capa inferior para realizar sus funciones.
 		            	</h3>
 	            		<div id="architecture-slides" class="owl-carousel">
           					<div> 
 	            				<blockquote>
-	                				<p>El núcleo de linux actúa como capa de abstracción entre el hardware y el resto de las capas de la arquitectura, para permitir el uso de las diferentes características físicas del teléfono, además, se encarga de gestionar los recursos del mismo, por ejemplo: batería, memoria, procesos de ejecución, conexiones a redes, entre otras</p>
+	                				<p>El núcleo de linux actúa como capa de abstracción entre el hardware y el resto de las capas de la arquitectura, para permitir el uso de las diferentes características físicas del teléfono, además, se encarga de gestionar los recursos del mismo, por ejemplo: batería, memoria, procesos de ejecución, conexiones a redes, entre otras.</p>
 	                 				<cite>linux kernel</cite>
 	          					</blockquote> 
 	      					</div>
 	      					<div> 
 	            				<blockquote>
-	                				<p>Escritas en C o C++ y compiladas para la arquitectura hardware específica del teléfono, tienen el objetivo de proporcionar a la capa de aplicaciones funcionalidad que se repite constantemente, por ejemplo: OpenGL --> motor de gráficos, multimedia --> audio, imagen & video, sqlite --> base de datos, entre otras</p>
+	                				<p>Escritas en C o C++ y compiladas para la arquitectura hardware específica del teléfono, tienen el objetivo de proporcionar a la capa de aplicaciones funcionalidad que se repite constantemente, por ejemplo: OpenGL --> motor de gráficos, multimedia --> audio, imagen & video, sqlite --> base de datos, entre otras.</p>
 	                 				<cite>native libraries</cite>
 	          					</blockquote> 
 	      					</div>
 	      					<div> 
 	            				<blockquote>
-	                				<p>El entorno de ejecución de android trabaja de la mano con las librerías nativas, utilizando una variación de la máquina virtual de java denominada dalvik, la cual ejecuta las aplicaciones escritas en java, es importante mencionar que no es compatible con el bytecode generador por la JVM - los ejecutables que se generan con el SDK de android tienen la extensión .dex</p>
+	                				<p>El entorno de ejecución de android trabaja de la mano con las librerías nativas, utilizando una variación de la máquina virtual de java denominada <a href="https://source.android.com/devices/tech/dalvik/" target="_blank">dalvik o art</a>, la cual ejecuta las aplicaciones escritas en java, es importante mencionar que no es compatible con el bytecode generador por la JVM - los ejecutables que se generan con el SDK de android tienen la extensión .dex</p>
 	                 				<cite>dalvik / android runtime</cite>
 	          					</blockquote> 
 	      					</div>
 	      					<div> 
 	            				<blockquote>
-	                				<p>Se encuentran todas las clases & servicios que utilizan directamente las aplicaciones para realizar sus funciones: activity manager, window manager, content providers, view system, notification manager, package manager, telephony manager, resource manager, location manager, sensor manager</p>
+	                				<p>Se encuentran todas las clases & servicios que utilizan directamente las aplicaciones para realizar sus funciones: activity manager, window manager, content providers, view system, notification manager, package manager, telephony manager, resource manager, location manager & sensor manager.</p>
 	                 				<cite>application framework</cite>
 	          					</blockquote> 
 	      					</div>
@@ -123,9 +124,10 @@
    		</section>
    		<!-- architecture topic end -->
 		<!-- new project section -->
-       	<section id="agenda">
-        	<h1 class="section-title wow fadeInDown">Aplicación Android</h1>
-        	<div class="header-col content-header">
+       	<section id="agenda">        	
+            <h1 class="section-title wow fadeInDown">Aplicación Android</h1>
+        	
+            <div class="header-col content-header">
 				<h2><span>Nuevo proyecto</span></h2>
             </div>            
             <div class="row education">
@@ -145,12 +147,8 @@
             	<div class="content-picture-container">	              		
               		<img class="content-picture wow zoomIn"  src="images/project/7-main.png" alt="new project" />
         		</div>
+                <span>Nota: La versión de Android Studio utilizada para generar este tutorial es 1.5.1 & la versión del SDK de Android utilizada para compilar el proyecto es 23.</span>
             </div>
-
-
-
-
-
             <div class="header-col content-header">
 				<h2><span>Ejecución de la aplicación</span></h2>
             </div>            
@@ -167,29 +165,133 @@
             	<br />
             	Para mayor información sobre genymotion visite <a href="https://docs.genymotion.com/Content/Home.htm" target="_blank">https://docs.genymotion.com/Content/Home.htm</a>
             	<br />
-            	<span>Nota: Dependiendo la computadora, en ocasiones genymotion requiere que en el BIOS se encuentre activada la opción de virtualización.</span>
+            	<span>Nota: Dependiendo del hardware de la computadora, en ocasiones genymotion requiere que en el BIOS se encuentre activada la opción de virtualización.</span>
             	<br />
-            	Una vez descargado e instalado agregue un dispositivo virtual, posteriormente en Android Studio:
+            	Una vez descargado e instalado agregaremos un dispositivo virtual (los pasos son intuitivos), posteriormente en Android Studio:
             	<ol>
             		<li>De clic en el botón <span>Run o Debug app</span></li>
             		<li>De la lista de dispositivos, seleccione el dispositivo Genymotion creado anteriormente</li>
             		<li>De clic en el botón <span>OK</span>
             	</ol>
-            	Android Studio realizará lo necesario para instalar la aplicación, una vez terminado el proceso verá una pantalla similar a la siguiente:
+            	Android Studio realizará lo necesario para instalar la aplicación, una vez terminado el proceso veremos una pantalla similar a la siguiente:
             	<div class="content-picture-container">
               		<img class="content-picture wow zoomIn" src="images/deploy/genymotion.png" alt="new project" style="height: 512px;" />
         		</div>
         		<br />
-        		Para <span>ejecutar la aplicación en un dispositivo físico</span> conecte el teléfono o tableta mediante USB a la computadora, posteriormente ejecute de nuevo los pasos descritos anteriormente, solo que en esta ocasión seleccione el dispositivo conectado.
+        		Para <span>ejecutar la aplicación en un dispositivo físico</span> se requiere: :
+                <ol>
+                    <li>
+                        Habilitar <span>Developer options</span>
+                        <ol>
+                            <li>Ir a <span>Settings &rarr; General &rarr; About device</span></li>
+                            <li>Ir a <span>Build number</span> & seleccionarla 7 veces</li>
+                            <li>Posteriormente, veremos un mensaje similar a <span>"Developer mode has been enabled"</span></li>
+                        </ol>
+                    </li>
+                    <li>
+                        Habilitar <span>USB debugging</span>
+                        <ol>
+                            <li>Selecccionar la opción <span>Settings &rarr; Developer options</span></li>
+                            <li>Seleccionar la opción <span>USB Debugging</span></li>
+                            <li>En el dialogo que se muestra, confirmar la opción <span>USB Debugging</span></li>
+                        </ol>
+                    </li>
+                    <li>
+                        Conectar el dispotivo mediante USB
+                        <ol>
+                            <li>En el dialogo que se muestra dentro del dispositivo, confirmar la opción <span>USB Debugging</span></li>
+                        </ol>
+                    </li>   
+                </ol>                
+                Una vez configurado, ejecute nuevamente los pasos realizados para instalar la aplicación pero en esta ocasión seleccione el dispositivo conectado.
         		<br /><br />
-            	<span>Nota: Sí el dispositivo no aparece dentro del listado, posiblemente sea necesario instalar los controlador del mismo en la computadora.</span>
+            	<span>Nota: Sí el dispositivo no aparece dentro del listado, posiblemente sea necesario instalar los controlador del mismo en la computadora & los pasos mencionados para habilitar la opción de desarrollador puede variar dependiendo el fabricante del dispositivo.</span>                
+                <br />
+                link de interés: <a href="https://developer.chrome.com/devtools/docs/remote-debugging" target="_blank">remote debugging</a>
+                <br />
+                <span style="color: #e91e63;">- It's time to review Android Studio & the project -</span>
             </div>
+            
+            <div class="header-col content-header">
+                <h2><span>Material Design</span></h2>                
+            </div>
+            <div class="row education">
+                Durante la construcción de nuestra aplicación estaremos implementando características que google define en su especificación de <a href="http://www.google.com/design/spec/material-design/introduction.html" target="_blank">Material Design</a>. La primera de ellas es definir los colores de nuestra aplicación, modificando el archivo colors.xml para agregar las variables requeridas, tal como se muestra en el siguiente ejemplo:
+<pre><code class="language-markup"><script type="prism-markup"><color name="primary">#E91E63</color>
+<color name="primary_dark">#C2185B</color>
+<color name="primary_light">#F8BBD0</color>
+<color name="accent">#448AFF</color>
+<color name="primary_text">#212121</color>
+<color name="secondary_text">#727272</color>
+<color name="icons">#FFFFFF</color>
+<color name="divider">#B6B6B6</color></script></code></pre>
+                link de interés:                 
+                <a href="http://www.materialpalette.com/" target="_blank">material palette</a>
+                <br />
 
+                Material Design surgio a partir de Android Lollipop, pero es posible agregar soporte a versiones anteriores, al configurar los siguientes dos archivos:
+                <ul>
+                    <li>* res\values\style.xml</li>
+                    <li>* res\values-v21\style.xml</li>
+                </ul>
 
-
-
-
-
+                El archivo values\style.xml se utiliza para definir los estilos de las versiones anteriores a lollipop, entonces modifiquemos la sección del tema tal como se muestra en el siguiente ejemplo: 
+                <pre><code class="language-markup"><script type="prism-markup"><style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <item name="colorPrimary">@color/primary</item>
+    <item name="colorPrimaryDark">@color/primary_dark</item>
+    <item name="colorAccent">@color/accent</item>
+</style></script></code></pre>
+                El archivo res\values-v21\style.xml se utiliza para definir los estilos de la versión lollipop y posteriores (este archivo no sufre cambios).
+                <br />
+                <span style="color: #e91e63;">- It's time to run the project -</span>
+                <div class="content-picture-container">
+                    <img class="content-picture wow zoomIn" src="images/nav-dra/1-colors.png" alt="colors"/>
+                </div>                
+                <span>Nota: Es importante mencionar que cuando la versión superior de Android era Lollipop (API level 21), la configuración de estos archivos se realizaba de forma un poco diferente.
+            </div>
+            
+            <div class="header-col content-header">
+				<h2><span>Navigation Drawer</span></h2>
+            </div>            
+            <div class="row education">
+            	<a href="https://www.google.com/design/spec/patterns/navigation-drawer.html#" target="_blank">Navigation Drawer</a> es un patron de diseño en aplicaciones de Google, el cual se recomienda utilizar cuando nuestra aplicación:
+            	<ul>
+            		<li>* Contiene multiples vistas</li>
+            		<li>* Cuando el # de tabs requerido es mayor a 4</li>
+            		<li>* Existe profundidad en la navegación</li>
+            	</ul>
+                Este patron de diseño requiere que nuestra aplicación tenga configurada una Toolbar.
+                <br />
+                <a href="https://www.google.com/design/spec/layout/structure.html#structure-toolbars" target="_blank">Toolbar</a> es uno de los componentes más importantes dentro de una aplicación Android, este componente sustituye al ActionBar, se utiliza para:
+                <ul>
+                    <li>* Permitir interactual con la navegación de las vistas</li>
+                    <li>* Indicar titulos & subtitulos</li>
+                    <li>* Indicar acciones de nuestra vista</li>
+                    <li>* Mostrar las opciones de menú de nuestra vista</li>
+                    <li>* Mostrar logo de la aplicación</li>
+                </ul>
+                1 - Configuremos el toolbar para indicar al usuario que nuestra aplicación cuenta con un navigation drawer, para ello primero vamos a <a href="https://design.google.com/icons/#ic_menu" target="_blank">descargar</a> el icono a utilizar & copiar cada icono en su respectiva carpeta mipmap.
+                <br />
+                2 - En el archivo MainActivity.java agreguemos el siguiente método para mostrar el icono de navegación en el toolbar:
+                <pre><code class="language-java"><script type="prism-java">private void setToolbar() {
+    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    toolbar.setNavigationIcon(R.mipmap.ic_menu_white_24dp);
+    setSupportActionBar(toolbar);
+}</script></code></pre>
+                3 - Modiquemos el método onCreate de este mismo archivo para llamar al método de configuración.
+                <pre><code class="language-java"><script type="prism-java">@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    setToolbar();
+    /* more code here */
+}</script></code></pre>
+                <br />
+                <span style="color: #e91e63;">- It's time to run the project -</span>
+                <div class="content-picture-container">
+                    <img class="content-picture wow zoomIn" src="images/nav-dra/2-menu-icon.png" alt="colors"/>
+                </div>
+        	</div>
         </section>
         <!-- new project section end -->
        	<!-- footer -->
@@ -216,6 +318,7 @@
         <script src="js/jquery.fittext.js"></script>
         <script src="js/wow.min.js"></script>
         <script src="js/jquery.nicescroll.min.js"></script>
+        <script src="js/prism.js"></script>
         <script src="js/script.js"></script>
     </body>
 </html>
