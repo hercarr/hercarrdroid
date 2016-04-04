@@ -1,4 +1,16 @@
 <resources>
     <string name="app_name">Hercarrdroid</string>
-    <string name="action_settings">Settings</string>
+    <!-- navigation drawer section -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_recycler_view">Recycler View</string>
+    <string name="title_web_service">Web Service</string>
+    <string name="title_view_pager">View Pager</string>
+    <string name="title_camera">Camera</string>
+    <string name="title_map">Map</string>
+    <string name="title_configuration">Configuration</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_log_out">Log out</string>
+    <!-- action section -->
+    <string name="action_about">About</string>
 </resources>
