@@ -3,42 +3,38 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_restaurants"
-            android:icon="@mipmap/ic_restaurant_black_24dp"
-            android:title="Restaurants" />
+            android:id="@+id/nav_recycler_view"
+            android:icon="@mipmap/ic_list_black_24dp"
+            android:title="@string/title_recycler_view" />
         <item
-            android:id="@+id/nav_hotels"
-            android:icon="@mipmap/ic_restaurant_black_24dp"
-            android:title="Hotels" />
-        <!--item
+            android:id="@+id/nav_web_service"
+            android:icon="@mipmap/ic_cloud_black_24dp"
+            android:title="@string/title_web_service" />
+        <item
+            android:id="@+id/nav_view_pager"
+            android:icon="@mipmap/ic_view_carousel_black_24dp"
+            android:title="@string/title_view_pager" />
+        <item
             android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Camera" />
+            android:icon="@mipmap/ic_photo_camera_black_24dp"
+            android:title="@string/title_camera" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" /-->
+            android:id="@+id/nav_map"
+            android:icon="@mipmap/ic_place_black_24dp"
+            android:title="@string/title_map" />
     </group>
 
-    <!--item android:title="Communicate">
+    <item android:title="@string/title_configuration">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/nav_settings"
+                android:icon="@mipmap/ic_settings_black_24dp"
+                android:title="@string/title_settings" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/nav_logout"
+                android:icon="@mipmap/ic_exit_to_app_black_24dp"
+                android:title="@string/title_log_out" />
         </menu>
-    </item-->
+    </item>
 
 </menu>
