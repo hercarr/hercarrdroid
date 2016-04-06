@@ -13,4 +13,8 @@
     <string name="title_log_out">Log out</string>
     <!-- action section -->
     <string name="action_about">About</string>
+    <!-- login layout -->
+    <string name="Username">Username</string>
+    <string name="Password">Password</string>
+    <string name="Login">Log in</string>
 </resources>
