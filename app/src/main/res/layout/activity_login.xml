@@ -11,23 +11,26 @@
     tools:context="mx.hercarr.hercarrdroid.activities.LoginActivity">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/txtUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/Username"
         android:layout_gravity="center_horizontal" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/txtPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/Password"
+        android:inputType="textPassword"
         android:layout_gravity="center_horizontal" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Login"
+        android:background="@color/accent"
         android:layout_gravity="center_horizontal" />
+
 </LinearLayout>

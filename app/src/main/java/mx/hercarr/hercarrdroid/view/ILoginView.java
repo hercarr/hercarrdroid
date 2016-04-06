@@ -4,6 +4,6 @@ public interface ILoginView {
 
     void userFound();
     void userNotFound();
-    void emptyParameters();
+    void emptyFields();
 
 }

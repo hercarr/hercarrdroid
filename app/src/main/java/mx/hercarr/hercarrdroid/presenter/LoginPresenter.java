@@ -22,7 +22,7 @@ public class LoginPresenter {
                 view.userNotFound();
             }
         } else {
-            view.emptyParameters();
+            view.emptyFields();
         }
     }
 

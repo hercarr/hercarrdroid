@@ -17,4 +17,6 @@
     <string name="Username">Username</string>
     <string name="Password">Password</string>
     <string name="Login">Log in</string>
+    <string name="msg_user_not_found">User not found, try again!</string>
+    <string name="msg_empty_fields">The username and password are required!</string>
 </resources>
