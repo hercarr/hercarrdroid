@@ -40,9 +40,7 @@ public class MainActivity extends AppCompatActivity
                         .show();
             }
         });
-
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        /* TODO - here verify the local user */
     }
 
     @Override
