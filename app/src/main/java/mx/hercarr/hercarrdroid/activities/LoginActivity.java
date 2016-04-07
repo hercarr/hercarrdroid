@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import mx.hercarr.hercarrdroid.R;
+import mx.hercarr.hercarrdroid.model.User;
 import mx.hercarr.hercarrdroid.presenter.LoginPresenter;
 import mx.hercarr.hercarrdroid.view.ILoginView;
 
@@ -45,7 +46,7 @@ public class LoginActivity extends AppCompatActivity
         int id = v.getId();
         switch (id) {
             case R.id.btnLogin:
-                presenter.validateUser(txtUsername.getText().toString(), txtPassword.getText().toString());
+                presenter.validateUser(this, txtUsername.getText().toString(), txtPassword.getText().toString());
                 break;
             case R.id.btnSingUp:
                 Intent intent = new Intent(this, RegisterActivity.class);
@@ -57,8 +58,8 @@ public class LoginActivity extends AppCompatActivity
     }
 
     @Override
-    public void userFound() {
-        Log.d("TAG", "user found!!!");
+    public void userFound(User user) {
+        Log.d("TAG", "user found --> " + user.getUsername());
     }
 
     @Override
