@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Hercarrdroid</string>
+    <!-- activities title section -->
+    <string name="activity_login">Login</string>
+    <string name="activity_sing_up">Sing Up</string>
     <!-- navigation drawer section -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
