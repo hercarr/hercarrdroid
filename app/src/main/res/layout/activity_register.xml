@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="mx.hercarr.hercarrdroid.activities.LoginActivity">
+    tools:context="mx.hercarr.hercarrdroid.activities.RegisterActivity">
 
     <EditText
         android:id="@+id/txtUsername"
@@ -25,12 +25,33 @@
         android:inputType="textPassword"
         android:layout_gravity="center_horizontal" />
 
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/txtFirstName"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/login"
-        android:background="@color/accent"
+        android:hint="@string/firstName"
+        android:layout_gravity="center_horizontal" />
+
+    <EditText
+        android:id="@+id/txtLastName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/lastName"
+        android:layout_gravity="center_horizontal" />
+
+    <EditText
+        android:id="@+id/txtEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:layout_gravity="center_horizontal" />
+
+    <EditText
+        android:id="@+id/txtPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/phone"
         android:layout_gravity="center_horizontal" />
 
     <Button
@@ -39,7 +60,6 @@
         android:layout_height="wrap_content"
         android:text="@string/sing_up"
         android:background="@color/accent"
-        android:layout_marginTop="10dp"
         android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
