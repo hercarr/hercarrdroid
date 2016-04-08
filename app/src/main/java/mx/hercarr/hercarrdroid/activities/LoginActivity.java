@@ -59,7 +59,8 @@ public class LoginActivity extends AppCompatActivity
 
     @Override
     public void userFound(User user) {
-        Log.d("TAG", "user found --> " + user.getUsername());
+        /* TODO - here redirect to the activity main */
+        Toast.makeText(this, "Hello  " + user.getUsername() + "!", Toast.LENGTH_LONG).show();
     }
 
     @Override
