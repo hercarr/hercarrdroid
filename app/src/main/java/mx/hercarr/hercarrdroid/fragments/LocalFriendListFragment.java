@@ -8,20 +8,20 @@ import android.view.ViewGroup;
 
 import mx.hercarr.hercarrdroid.R;
 
-public class RemoteUserListFragment extends Fragment {
+public class LocalFriendListFragment extends Fragment {
 
-    public RemoteUserListFragment() {
+    public LocalFriendListFragment() {
 
     }
 
-    public static RemoteUserListFragment newInstance() {
-        RemoteUserListFragment fragment = new RemoteUserListFragment();
+    public static LocalFriendListFragment newInstance() {
+        LocalFriendListFragment fragment = new LocalFriendListFragment();
         return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_remote_user_list, container, false);
+        return inflater.inflate(R.layout.fragment_local_friend_list, container, false);
     }
 
 }

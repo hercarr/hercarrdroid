@@ -15,8 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import mx.hercarr.hercarrdroid.fragments.LocalUserListFragment;
-import mx.hercarr.hercarrdroid.fragments.RemoteUserListFragment;
+import mx.hercarr.hercarrdroid.fragments.LocalFriendListFragment;
+import mx.hercarr.hercarrdroid.fragments.RemoteFriendListFragment;
 
 public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
@@ -70,10 +70,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         switch (id)  {
             case R.id.nav_recycler_view:
-                loadFragment(LocalUserListFragment.class);
+                loadFragment(LocalFriendListFragment.newInstance());
                 break;
             case R.id.nav_web_service:
-                loadFragment(RemoteUserListFragment.class);
+                loadFragment(RemoteFriendListFragment.newInstance());
                 break;
             case R.id.nav_view:
                 break;
@@ -112,15 +112,7 @@ public class MainActivity extends AppCompatActivity
         txtOption = (TextView) findViewById(R.id.txtOption);
     }
 
-    private void loadFragment(Class<? extends Fragment> fragmentClass) {
-        Fragment fragment = null;
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+    private void loadFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager
                 .beginTransaction()
