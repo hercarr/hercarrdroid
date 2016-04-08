@@ -74,7 +74,7 @@
             <!-- social end -->
        	</header>
        	<!-- header end -->
-		<!-- design patter section -->
+		<!-- section two start -->
        	<section id="agenda">        	
             <h1 class="section-title wow fadeInDown">Patrones de diseño</h1>        	
             <div class="header-col content-header">
@@ -203,27 +203,27 @@ public class LoginPresenter {
     tools:context="mx.hercarr.hercarrdroid.activities.LoginActivity">
 
     <EditText
-        android:id="@+id/txtUsername"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/username"
-        android:layout_gravity="center_horizontal" />
+            android:id="@+id/txtUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/username"
+            android:layout_gravity="center_horizontal" />
 
     <EditText
-        android:id="@+id/txtPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:layout_gravity="center_horizontal" />
+            android:id="@+id/txtPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:layout_gravity="center_horizontal" />
 
     <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/login"
-        android:background="@color/accent"
-        android:layout_gravity="center_horizontal" />
+            android:id="@+id/btnLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login"
+            android:background="@color/accent"
+            android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
 </script></code></pre>
@@ -478,56 +478,56 @@ public class RegisterPresenter {
     tools:context="mx.hercarr.hercarrdroid.activities.RegisterActivity">
 
     <EditText
-        android:id="@+id/txtUsername"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/username"
-        android:layout_gravity="center_horizontal" />
+            android:id="@+id/txtUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/username"
+            android:layout_gravity="center_horizontal" />
 
     <EditText
-        android:id="@+id/txtPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:layout_gravity="center_horizontal" />
+            android:id="@+id/txtPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:layout_gravity="center_horizontal" />
 
     <EditText
-        android:id="@+id/txtFirstName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/firstName"
-        android:layout_gravity="center_horizontal" />
+            android:id="@+id/txtFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/firstName"
+            android:layout_gravity="center_horizontal" />
 
     <EditText
-        android:id="@+id/txtLastName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/lastName"
-        android:layout_gravity="center_horizontal" />
+            android:id="@+id/txtLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/lastName"
+            android:layout_gravity="center_horizontal" />
 
     <EditText
-        android:id="@+id/txtEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress"
-        android:layout_gravity="center_horizontal" />
+            android:id="@+id/txtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:layout_gravity="center_horizontal" />
 
     <EditText
-        android:id="@+id/txtPhone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/phone"
-        android:layout_gravity="center_horizontal" />
+            android:id="@+id/txtPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/phone"
+            android:layout_gravity="center_horizontal" />
 
     <Button
-        android:id="@+id/btnSingUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sing_up"
-        android:background="@color/accent"
-        android:layout_gravity="center_horizontal" />
+            android:id="@+id/btnSingUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sing_up"
+            android:background="@color/accent"
+            android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
 </script></code></pre>
@@ -622,13 +622,13 @@ public class RegisterActivity extends AppCompatActivity
                 <pre><code class="language-markup"><script type="prism-markup">    <!-- more code here -->
 
     <Button
-        android:id="@+id/btnSingUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sing_up"
-        android:background="@color/accent"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal" />
+            android:id="@+id/btnSingUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sing_up"
+            android:background="@color/accent"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal" />
 
     <!-- more code here -->
 
@@ -710,9 +710,188 @@ public class RegisterActivity extends AppCompatActivity
                     <li>* Al seleccionar la opción log out, eliminar los datos del usuario persistido</li>
                 </ul>
                 
-            </div>                    
+            </div>
+            <div class="header-col content-header">
+                <h2><span>Fragments & Fragment Manager</span></h2>
+            </div>            
+            <div class="row education">
+                Un <a href="http://developer.android.com/guide/components/fragments.html" target="_blank">Fragment</a> representa una porción de interfaz de usuario. El clilo de vida de un fragment es similar al ciclo de vida de un Activity. Un fragmento no puede existir sin una actividad y una actividad puede contener uno o más fragmentos, en otras palabras, un fragmento representa una función modular o concreta de una actividad.
+                <br /><br />
+                Para poner en practica esta importante caracteristica de Android, vamos reemplazar el funcionamiento que definimos en la sesión #1 al momento de seleccionar una opción del Navigation Drawer, ahora en lugar de actualizar el texto del contenido principal con el titulo de la opción seleccionada, mostremos un fragmento para cada opción seleccionada. Por el momento, solo definiremos dos fragmentos, el resto lo haremos en las secciones anteriores. Estos serán los que ocuparemos para mostrar una lista de amigos en nuestra aplicación.
+                <br /><br />
+                1 - En Android Studio selecionemos las opciones <span>File &rarr; New &rarr; Fragment &rarr; Fragment (Blank)</span> para crear los siguientes fragmentos
+                <ul>
+                    <li>* <span>LocalFriendListFragment.java</span> / <span>fragment_local_friend_list.xml</span></li>
+                    <li>* <span>RemoteFriendListFragment.java</span> / <span>fragment_remote_friend_list.xml</span></li>
+                </ul>
+                <span>Nota: No seleccionar las opciones <s><i>Include fragment factory methods</i></s> e <s><i>Include interface callbacks</i></s>, ya que para efectos de practica los configuraremos manualmente.</span>
+                <br /><br />
+                Una vez creado los archivos anteriores:
+                <ul>
+                    <li>En los archivos Java configuremos un método factory que nos retorne una instancia del fragmento correspondiente</li>
+                    <li>En los recursos xml agreguemos un TextView simplemente para indicar textualmente en que fragmentos nos encontramos</li>
+                </ul>
+                Una vez realizado lo anterior, tendremos los siguientes archivos:
+                <br />
+                <span>LocalFriendListFragment.java</span>
+                <pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.fragments;
+
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import mx.hercarr.hercarrdroid.R;
+
+public class LocalFriendListFragment extends Fragment {
+
+    public LocalFriendListFragment() {
+
+    }
+
+    public static LocalFriendListFragment newInstance() {
+        LocalFriendListFragment fragment = new LocalFriendListFragment();
+        return fragment;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_local_friend_list, container, false);
+    }
+
+}
+</script></code></pre>
+                <span>fragment_local_friend_list.xml</span>
+                <pre><code class="language-markup"><script type="prism-markup"><FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.LocalFriendListFragment">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="local users" />
+
+</FrameLayout>
+</script></code></pre>
+                <span>RemoteFriendListFragment.java</span>
+                <pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.fragments;
+
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import mx.hercarr.hercarrdroid.R;
+
+public class RemoteFriendListFragment extends Fragment {
+
+    public RemoteFriendListFragment() {
+
+    }
+
+    public static RemoteFriendListFragment newInstance() {
+        RemoteFriendListFragment fragment = new RemoteFriendListFragment();
+        return fragment;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_remote_friend_list, container, false);
+    }
+
+}
+</script></code></pre>
+                <span>fragment_remote_friend_list.xml</span>
+                <pre><code class="language-markup"><script type="prism-markup"><FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.RemoteFriendListFragment">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="remote users" />
+
+</FrameLayout>
+</script></code></pre>
+                2 - Actualicemos el layout <span>app_bar_main.xml</span> reemplazando el include del archivo content_main.xml por un elemento <span>FrameLayout</span>
+                <pre><code class="language-markup"><script type="prism-markup"><!-- more code here -->
+        
+    <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    </FrameLayout>
+
+    <!-- more code here -->
+</script></code></pre>
+                3 - En la clase <span>MainActivity.java</span>:
+                <ul>
+                    <li>Eliminemos el método showTitle</li>
+                    <li>Implementemos el médoto loadFragment</li>
+                    <li>Actualicemos el método onNavigationItemSelected para cargar el fragmento correspondiente</li>
+                    <li>Creemos el método closeDrawer para reutilizarlo dentro de los métodos anteriores</li>
+                </ul>
+                Los pasos anteriores permitiran que la clase <span>MainActivity.java</span> tenga la siguiente implementación
+                <br />                
+                <pre><code class="language-java"><script type="prism-java">    /* more code here */
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id)  {
+            case R.id.nav_recycler_view:
+                loadFragment(LocalFriendListFragment.newInstance());
+                break;
+            case R.id.nav_web_service:
+                loadFragment(RemoteFriendListFragment.newInstance());
+                break;
+            case R.id.nav_view:
+                break;
+            case R.id.nav_camera:
+                break;
+            case R.id.nav_map:
+                break;
+            case R.id.nav_settings:
+                break;
+            case R.id.nav_logout:
+                break;
+            default:
+                break;
+        }
+        closeDrawer();
+        return true;
+    }
+
+    /* more code here */    
+
+    private void loadFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager
+                .beginTransaction()
+                .replace(R.id.frameLayout, fragment)
+                .commit();
+        closeDrawer();
+    }
+
+    private void closeDrawer() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+    }
+</script></code></pre>
+                <span style="color: #e91e63;">- It's time to run the project & test it -</span>
+                <div class="content-picture-container">
+                    <img class="content-picture wow zoomIn" src="images/nav-dra/5-load-fragment.png" alt="login"/>
+                </div>
+            </div>
         </section>
-        <!-- design patter section end -->
+        <!-- section two end -->
        	<!-- footer -->
         <footer>
             <div class="row">
