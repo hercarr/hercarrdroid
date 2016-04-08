@@ -50,8 +50,12 @@
                     <h3 class="wow fadeInUp">Quality &amp; Knowledge on IT Services</h3>
                     <h3 class="wow fadeInUp">Víctor Hernández</h3>
                     <h3 class="wow fadeInUp">victor.hernandez@qacg.com | hercarr.mx@gmail.com</h3>
+                    <h3 class="wow fadeInUp"><span style="font-size: .6em;">Sí lo requieres, descarga la versión del proyecto de la sesión anterior</span></h3>
                     <hr />
                 </div>
+                <p align="center" style="margin-top: -10px;">                                        
+                    <a href="https://github.com/hercarr/hercarrdroid/archive/v1.0.zip" class="button" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                </p>
             </div>
             <p class="scrolldown">
                 <a class="smoothscroll" href="#about"><i class="fa fa-angle-double-down"></i></a>
@@ -72,14 +76,253 @@
        	<!-- header end -->
 		<!-- design patter section -->
        	<section id="agenda">        	
-            <h1 class="section-title wow fadeInDown">Patrones de dise&ntilde;o</h1>
-        	
+            <h1 class="section-title wow fadeInDown">Patrones de diseño</h1>        	
             <div class="header-col content-header">
 				<h2><span>MVP - Model View Presenter</span></h2>
             </div>            
             <div class="row education">
-            	El patrón de diseño MVP o Model View Presenter...            	
-        	</div>
+            	El patrón de diseño <span>MVP</span> o Model View Presenter <span>separa la capa de presentación de la lógica de la aplicación</span>, por ende, su objetivo es que todo lo relacionado con cómo funciona la interfaz de usuario este separado del cómo representarlo en pantalla.
+                <br /><br />
+                En Android, comunmente tenemos el problema que tanto las actividades como los fragmentos estan altamente acoplados con los componentes de la interfaz grafica y los mecanismos de acceso a datos (ws, bd, files, etc.). Cuando nuestra aplicación es pequeña no tenemos ningun problema, pero cuando la aplicación implementa diversas funcionalidades lo que refleja una gran cantidad de clases el mantenimiento & escalabilidad se complica.
+                <br /><br />
+                <span>¿Que pasaría si mañana en lugar de obtener la información de un ws, se requiere obtener de una base de datos local?</span>
+                <br /><br />
+                MVP permite que la vista sea independiente del origen de datos. Dividiendo la aplicación en al menós tres capas totalmente distintas.
+                <br /><br />
+                <span>¿Cómo implementar MVP en Android?</span>
+                <br /><br />
+                En internet existe una infinidad de ejemplo en relación a este tema, algunos de ellos son tan complejos porque involucran el uso de demasiadas clases & interfaces para llevar a cabo esto. En este curso, nosotros utilizaremos una implementanción de este patrón en un forma facil & simple pero efectiva al utilizarlo en conjunto con otro patrón de diseño (comunmente utilizado en aplicaciones iOS) <span>Delegate Pattern</span>.
+                <br /><br />
+                <span>Model - </span>Contiene cada una de las clases que representan a una entidad dentro de nuestra aplicación.
+                <br />
+                <span>View - </span>Esta capa estará compuesta por interfaces, donde cada una definirá los métodos o acciones que se requieren notificar al usuario.
+                <br />
+                <span>Presentador - </span>Clases que se encargan de actuar como intermediario entre la vista & el modelo. Esta capa puede o no conocer directamente el origen de los datos (dependiendo si nuestra aplicación cuenta con alguna capa de servicios), pero no debe conocer los componens graficos desde donde se le esta invocando.
+                <br /><br />
+            </div>
+
+            <div class="header-col content-header">
+                <h2><span>Implementación de MVP - Autenticación de usuario</span></h2>
+            </div>            
+            <div class="row education">
+            <span>Manos a la obra!!!</span> Vamos a incorporar a nuestra aplicación un proceso de autenticación de usuario para permitir ingresar a la misma sólo a usuarios registrados. Para ello ejecutemos los siguientes pasos:
+            <br /><br />
+            1 - Incorporemos la clase <span>User.java</span> para representar nuestro modelo Usuario
+            <pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.model;
+
+public class User {
+
+    private String username;
+    private String password;
+    
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+}                
+</script></code></pre>
+                <br />
+                2 - Definamos la interfaz <span>ILoginView.java</span> declarando los métodos que representen un resultado a notificar al usuario<pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.view;
+
+import mx.hercarr.hercarrdroid.model.User;
+
+public interface ILoginView {
+
+    void userFound(User user);
+    void userNotFound();
+    void emptyFields();
+
+}          
+</script></code></pre>
+                <br />
+                3 - Declaremos la clase LoginPresenter solicitando en el contructor a la vista encarga de notificar resultados al usuario, así como implementando el método para la validación del usuario<pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.presenter;
+
+import mx.hercarr.hercarrdroid.model.User;
+import mx.hercarr.hercarrdroid.view.ILoginView;
+
+public class LoginPresenter {
+
+    private ILoginView view;
+
+    public LoginPresenter(ILoginView view) {
+        this.view = view;
+    }
+
+    public void validateUser(String username, String password) {
+        if (username != null && !username.isEmpty()
+            && password != null && !password.isEmpty()) {            
+            if (username.equals("hercarr") && password.equals("secret")) {
+                User user = new User();
+                user.setUsername(username);
+                user.setPassword(password);
+                view.userFound(user);
+            } else {
+                view.userNotFound();
+            }
+        } else {
+            view.emptyFields();
+        }
+    }
+
+}
+</script></code></pre>
+                <br />                
+                4 - Agregamos una nueva empty actitivy denominada <span>LoginActivity.java</span> & configuramos lo siguiente:
+                <ul>
+                    <li>* Modificamos el layout <span>activity_login.xml</span> para diseñar la interfaz de login</li>
+                    <li>* En LoginActivity.java declaramos las referencias para la clase LoginPresenter & los widgets correspondientes</li>
+                    <li>* Implementamos la interfaz View.OnClickListener</li>
+                    <li>* Definimos el handler del evento onclik del botón btnLogin, para invocar al método validateUser del presentador</li>
+                    <li>* Implementamos la interfaz ILoginView, para mostrar un mensaje al usuario correspondiente a cada acción</li>
+                    <li>* En la clase MainActivity.java, temporalmente definimos un intent para mostrar la interfaz de login</li>
+                </ul>
+                Al finalizar los pasos anteriores, tendremos como resultado:
+                <br />
+                <span>activity_login.xml</span><pre><code class="language-markup"><script type="prism-markup"><?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context="mx.hercarr.hercarrdroid.activities.LoginActivity">
+
+    <EditText
+        android:id="@+id/txtUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/username"
+        android:layout_gravity="center_horizontal" />
+
+    <EditText
+        android:id="@+id/txtPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:background="@color/accent"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>
+</script></code></pre>
+                <span>LoginActivity.java</span>
+                <pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.activities;
+
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import mx.hercarr.hercarrdroid.R;
+import mx.hercarr.hercarrdroid.model.User;
+import mx.hercarr.hercarrdroid.presenter.LoginPresenter;
+import mx.hercarr.hercarrdroid.view.ILoginView;
+
+public class LoginActivity extends AppCompatActivity
+    implements View.OnClickListener, ILoginView {
+
+    private LoginPresenter presenter;
+
+    private TextView txtUsername;
+    private TextView txtPassword;
+    private Button btnLogin;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        init();
+    }
+
+    private void init() {
+        presenter = new LoginPresenter(this);
+        txtUsername = (TextView) findViewById(R.id.txtUsername);
+        txtPassword = (TextView) findViewById(R.id.txtPassword);
+        btnLogin = (Button) findViewById(R.id.btnLogin);
+        btnLogin.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch (id) {
+            case R.id.btnLogin:
+                presenter.validateUser(this, txtUsername.getText().toString(), txtPassword.getText().toString());            
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void userFound(User user) {
+        Log.d("TAG", "user found --> " + user.getUsername());
+    }
+
+    @Override
+    public void userNotFound() {
+        showToast(R.string.msg_user_not_found);
+    }
+
+    @Override
+    public void emptyFields() {
+        showToast(R.string.msg_login_empty_fields);
+    }
+
+    private void showToast(int stringID) {
+        Toast.makeText(this, stringID, Toast.LENGTH_LONG).show();
+    }
+
+}
+</script></code></pre>
+                <span>MainActivity.java</span>
+                <pre><code class="language-java"><script type="prism-java">public class MainActivity extends AppCompatActivity
+    implements NavigationView.OnNavigationItemSelectedListener {
+
+    /* more code here */
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        /* more code here */
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
+    /* more code here */
+}
+</script></code></pre>
+                <br />
+            <span style="color: #e91e63;">- It's time to run the project & test it-</span>
+                <div class="content-picture-container">
+                    <img class="content-picture wow zoomIn" src="images/login/1-login.png" alt="login"/>
+                </div>
+            </div>
         </section>
         <!-- design patter section end -->
        	<!-- footer -->
