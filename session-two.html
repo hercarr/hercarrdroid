@@ -53,7 +53,7 @@
                     <h3 class="wow fadeInUp"><span style="font-size: .6em;">Sí lo requieres, descarga la versión del proyecto de la sesión anterior</span></h3>
                     <hr />
                 </div>
-                <p align="center" style="margin-top: -10px;">                                        
+                <p align="center" style="margin-top: -14px;">                                        
                     <a href="https://github.com/hercarr/hercarrdroid/archive/v1.0.zip" class="button" target="_blank"><i class="fa fa-download"></i> Descargar</a>
                 </p>
             </div>
@@ -83,21 +83,21 @@
             <div class="row education">
             	El patrón de diseño <span>MVP</span> o Model View Presenter <span>separa la capa de presentación de la lógica de la aplicación</span>, por ende, su objetivo es que todo lo relacionado con cómo funciona la interfaz de usuario este separado del cómo representarlo en pantalla.
                 <br /><br />
-                En Android, comunmente tenemos el problema que tanto las actividades como los fragmentos estan altamente acoplados con los componentes de la interfaz grafica y los mecanismos de acceso a datos (ws, bd, files, etc.). Cuando nuestra aplicación es pequeña no tenemos ningun problema, pero cuando la aplicación implementa diversas funcionalidades lo que refleja una gran cantidad de clases el mantenimiento & escalabilidad se complica.
+                En Android, comúnmente tenemos el problema que tanto las actividades como los fragmentos están altamente acoplados con los componentes de la interfaz gráfica y también con los mecanismos de acceso a datos (ws, bd, files, etc.). Cuando nuestra aplicación es pequeña no tenemos ningún problema, pero cuando la aplicación implementa diversas funcionalidades, lo que refleja una gran cantidad de clases, el mantenimiento y escalabilidad se complica.
                 <br /><br />
                 <span>¿Que pasaría si mañana en lugar de obtener la información de un ws, se requiere obtener de una base de datos local?</span>
                 <br /><br />
-                MVP permite que la vista sea independiente del origen de datos. Dividiendo la aplicación en al menós tres capas totalmente distintas.
+                MVP permite que la vista sea independiente del origen de datos. Dividiendo la aplicación en al menos tres capas totalmente distintas.
                 <br /><br />
                 <span>¿Cómo implementar MVP en Android?</span>
                 <br /><br />
-                En internet existe una infinidad de ejemplo en relación a este tema, algunos de ellos son tan complejos porque involucran el uso de demasiadas clases & interfaces para llevar a cabo esto. En este curso, nosotros utilizaremos una implementanción de este patrón en un forma facil & simple pero efectiva al utilizarlo en conjunto con otro patrón de diseño (comunmente utilizado en aplicaciones iOS) <span>Delegate Pattern</span>.
+                En Internet existe una infinidad de ejemplos en relación con este tema, algunos de ellos son tan complejos porque involucran el uso de demasiadas clases e interfaces para llevar a cabo esto. En este curso utilizaremos una implementación de este patrón de diseño en una forma facil / simple pero efectiva al utilizarlo en conjunto con otro patrón de diseño (comúnmente utilizado en aplicaciones iOS) <span>Delegate Pattern</span>. En nuestro proyecto, adicionalmente de las clases relacionadas a la interfaz de usuario, incorporaremos las siguientes capas:
                 <br /><br />
                 <span>Model - </span>Contiene cada una de las clases que representan a una entidad dentro de nuestra aplicación.
                 <br />
-                <span>View - </span>Esta capa estará compuesta por interfaces, donde cada una definirá los métodos o acciones que se requieren notificar al usuario.
+                <span>View - </span>Esta capa esta compuesta por interfaces, donde cada una definirá los métodos o acciones que se requieren notificar al usuario.
                 <br />
-                <span>Presentador - </span>Clases que se encargan de actuar como intermediario entre la vista & el modelo. Esta capa puede o no conocer directamente el origen de los datos (dependiendo si nuestra aplicación cuenta con alguna capa de servicios), pero no debe conocer los componens graficos desde donde se le esta invocando.
+                <span>Presentador - </span>Clases que se encargan de actuar como intermediario entre la vista y el modelo. Esta capa puede o no conocer directamente el origen de los datos (dependiendo si nuestra aplicación cuenta con alguna capa de servicios), pero no debe conocer los componentes gráficos desde donde se le esta invocando.
                 <br /><br />
             </div>
 
@@ -105,10 +105,10 @@
                 <h2><span>Implementación de MVP - Autenticación de usuario</span></h2>
             </div>            
             <div class="row education">
-            <span>Manos a la obra!!!</span> Vamos a incorporar a nuestra aplicación un proceso de autenticación de usuario para permitir ingresar a la misma sólo a usuarios registrados. Para ello ejecutemos los siguientes pasos:
-            <br /><br />
-            1 - Incorporemos la clase <span>User.java</span> para representar nuestro modelo Usuario
-            <pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.model;
+                <span>Manos a la obra!!!</span> Vamos a incorporar a nuestra aplicación un proceso de autenticación de usuario para permitir ingresar a la misma sólo a usuarios registrados. Para ello ejecutemos los siguientes pasos:
+                <br /><br />
+                1 - Incorporemos la clase <span>User.java</span> para representar nuestro modelo Usuario
+                <pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.model;
 
 public class User {
 
@@ -134,7 +134,7 @@ public class User {
 }                
 </script></code></pre>
                 <br />
-                2 - Definamos la interfaz <span>ILoginView.java</span> declarando los métodos que representen un resultado a notificar al usuario<pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.view;
+                2 - Definamos la interfaz <span>ILoginView.java</span> declarando los métodos que indiquen un resultado a notificar al usuario<pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.view;
 
 import mx.hercarr.hercarrdroid.model.User;
 
@@ -147,7 +147,7 @@ public interface ILoginView {
 }          
 </script></code></pre>
                 <br />
-                3 - Declaremos la clase LoginPresenter solicitando en el contructor a la vista encarga de notificar resultados al usuario, así como implementando el método para la validación del usuario<pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.presenter;
+                3 - Declaremos la clase <span>LoginPresenter.java</span> solicitando en el constructor a la vista encarga de notificar resultados al usuario, así como implementando el método para la validación del usuario<pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.presenter;
 
 import mx.hercarr.hercarrdroid.model.User;
 import mx.hercarr.hercarrdroid.view.ILoginView;
@@ -282,7 +282,7 @@ public class LoginActivity extends AppCompatActivity
 
     @Override
     public void userFound(User user) {
-        Log.d("TAG", "user found --> " + user.getUsername());
+        Toast.makeText(this, "Hello  " + user.getUsername() + "!", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -318,11 +318,399 @@ public class LoginActivity extends AppCompatActivity
 }
 </script></code></pre>
                 <br />
-            <span style="color: #e91e63;">- It's time to run the project & test it-</span>
-                <div class="content-picture-container">
-                    <img class="content-picture wow zoomIn" src="images/login/1-login.png" alt="login"/>
+                <span style="color: #e91e63;">- It's time to run the project & test it-</span>
+                    <div class="content-picture-container">
+                        <img class="content-picture wow zoomIn" src="images/login/1-login.png" alt="login"/>
+                    </div>
                 </div>
-            </div>
+
+                <div class="header-col content-header">
+                    <h2><span>Shared Preferences</span></h2>
+                </div>            
+                <div class="row education">
+                En aplicaciones Android contamos con varios mecanismos para persistir información, los más usados son:
+                <ul>
+                    <li>* Shared Preferences</li>
+                    <li>* Files</li>
+                    <li>* API REST / Web Services</li>
+                    <li>* SQlite Database</li>
+                </ul>
+                A continuación, utilizaremos <a href="http://developer.android.com/training/basics/data-storage/shared-preferences.html" target="_blank">Shared Preferences</a> para simular en nuestra aplicación un proceso de registro de usuario. Shared Preferences almacena la información en un esquema llave - valor, similar a un HashMap en Java. Se recomienda utilizarlo cuando la información a persistir es pequeña y plana, es decir, no representa múltiples relaciones entre ella. Para implementar esto, realicemos los siguientes pasos:
+                <br /><br />
+                1 - Modifquemos la clase <span>User.java</span> para agregar las siguientes propiedades
+                <pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.model;
+
+public class User {
+
+    private String username;
+    private String password;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String phone;
+    
+    /* getter and setter methods  */
+
+}                
+</script></code></pre>
+                <br />
+                2 - Definamos la interfaz <span>IRegisterView.java</span> declarando los métodos que representen un resultado a notificar al usuario<pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.view;
+
+public interface IRegisterView {
+
+    void registered(boolean result);
+    void emptyFields();
+
+}     
+</script></code></pre>
+                <br />
+                3 - Declaremos la clase <span>Constantes.java</span> para declarar las llaves de los valores a persistir<pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.util;
+
+public class Constants {
+
+    private Constants() {
+
+    }
+
+    public static class KEYS {
+        public static final String USERNAME = "username";
+        public static final String PASSWORD = "password";
+        public static final String FIRSTNAME = "firstName";
+        public static final String LASTNAME = "lastName";
+        public static final String EMAIL = "email";
+        public static final String PHONE = "phone";
+
+    }
+
+}
+</script></code></pre>
+                4 - Para implementar el uso de shared preferences e incorpar en nuestra aplicación una mejor legibilidad de código & escalabilidad, declaremos la clase <span>SharedPreferencesUtils.java</span> para que sea esta clase quien controle todas las operaciones requeridas para persistir la información.<pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.util;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
+public class SharedPreferencesUtils {
+
+    public static void save(Context context, String key, String value) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(key,value);
+        editor.commit();
+    }
+
+    public static String get(Context context, String key, String defaultValue) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        try {
+            return sharedPreferences.getString(key, defaultValue);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return defaultValue;
+        }
+    }
+
+    public static void remove(Context context, String key) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove(key);
+        editor.commit();
+    }
+
+}
+</script></code></pre>
+                5 - Declaremos la clase <span>RegisterPresenter.java</span> solicitando en el constructor a la vista encarga de notificar el resultado de registro, así como implementando el método para registrar el usuario persistiendo la información mediante el uso de shared preferences<pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.presenter;
+
+import android.content.Context;
+
+import mx.hercarr.hercarrdroid.util.Constants;
+import mx.hercarr.hercarrdroid.util.SharedPreferencesUtils;
+import mx.hercarr.hercarrdroid.view.IRegisterView;
+
+public class RegisterPresenter {
+
+    private IRegisterView view;
+
+    public RegisterPresenter(IRegisterView view) {
+        this.view = view;
+    }
+
+    public void registerUser(Context context, String username, String password, String firstName, String lastName, String email, String phone) {
+        if (username != null && !username.isEmpty()
+                && password != null && !password.isEmpty()
+                && firstName != null && !firstName.isEmpty()
+                && lastName!= null && !lastName.isEmpty()
+                && email!= null && !email.isEmpty()) {
+            SharedPreferencesUtils.save(context, Constants.KEYS.USERNAME, username);
+            SharedPreferencesUtils.save(context, Constants.KEYS.PASSWORD, password);
+            SharedPreferencesUtils.save(context, Constants.KEYS.FIRSTNAME, firstName);
+            SharedPreferencesUtils.save(context, Constants.KEYS.LASTNAME, lastName);
+            SharedPreferencesUtils.save(context, Constants.KEYS.EMAIL, email);
+            SharedPreferencesUtils.save(context, Constants.KEYS.PHONE, phone);
+            view.registered(true);
+        } else {
+            view.emptyFields();
+        }
+    }
+
+}
+</script></code></pre>
+                <br /> 
+                6 - Agregamos una nueva empty actitivy denominada <span>RegisterActivity.java</span> & configuramos lo siguiente:
+                <ul>
+                    <li>* Modificamos el layout <span>activity_register.xml</span> para diseñar la interfaz de registro de usuario</li>
+                    <li>* En RegisterActivity.java declaramos las referencias para la clase RegisterPresenter & los widgets correspondientes</li>
+                    <li>* Implementamos la interfaz View.OnClickListener</li>
+                    <li>* Definimos el handler del evento onclik del botón btnSingUp, para invocar al método registerUser del presentador</li>
+                    <li>* Implementamos la interfaz IRegisterView, para mostrar un mensaje al usuario correspondiente a cada acción</li>
+                </ul>
+                Al finalizar los pasos anteriores, tendremos como resultado:
+                <br />
+                <span>activity_register.xml</span><pre><code class="language-markup"><script type="prism-markup"><?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context="mx.hercarr.hercarrdroid.activities.RegisterActivity">
+
+    <EditText
+        android:id="@+id/txtUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/username"
+        android:layout_gravity="center_horizontal" />
+
+    <EditText
+        android:id="@+id/txtPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:layout_gravity="center_horizontal" />
+
+    <EditText
+        android:id="@+id/txtFirstName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/firstName"
+        android:layout_gravity="center_horizontal" />
+
+    <EditText
+        android:id="@+id/txtLastName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/lastName"
+        android:layout_gravity="center_horizontal" />
+
+    <EditText
+        android:id="@+id/txtEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:layout_gravity="center_horizontal" />
+
+    <EditText
+        android:id="@+id/txtPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/phone"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:id="@+id/btnSingUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sing_up"
+        android:background="@color/accent"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>
+</script></code></pre>
+                <span>RegisterActivity.java</span>
+                <pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.activities;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import mx.hercarr.hercarrdroid.R;
+import mx.hercarr.hercarrdroid.presenter.RegisterPresenter;
+import mx.hercarr.hercarrdroid.view.IRegisterView;
+
+public class RegisterActivity extends AppCompatActivity
+    implements View.OnClickListener, IRegisterView {
+
+    private RegisterPresenter presenter;
+
+    private TextView txtUsername;
+    private TextView txtPassword;
+    private TextView txtFirstName;
+    private TextView txtLastName;
+    private TextView txtEmail;
+    private TextView txtPhone;
+    private Button btnSingUp;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register);
+        init();
+    }
+
+    private void init() {
+        presenter = new RegisterPresenter(this);
+        txtUsername = (TextView) findViewById(R.id.txtUsername);
+        txtPassword = (TextView) findViewById(R.id.txtPassword);
+        txtFirstName = (TextView) findViewById(R.id.txtFirstName);
+        txtLastName = (TextView) findViewById(R.id.txtLastName);
+        txtEmail = (TextView) findViewById(R.id.txtEmail);
+        txtPhone = (TextView) findViewById(R.id.txtPhone);
+        btnSingUp = (Button) findViewById(R.id.btnSingUp);
+        btnSingUp.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch (id) {
+            case R.id.btnSingUp :
+                presenter.registerUser(
+                        this,
+                        txtUsername.getText().toString(),
+                        txtPassword.getText().toString(),
+                        txtFirstName.getText().toString(),
+                        txtLastName.getText().toString(),
+                        txtEmail.getText().toString(),
+                        txtPhone.getText().toString());
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void registered(boolean result) {
+        if (result) {
+            showToast(R.string.msg_register_user_success);
+            finish();
+        } else {
+            showToast(R.string.msg_register_user_error);
+        }
+    }
+
+    @Override
+    public void emptyFields() {
+        showToast(R.string.msg_register_empty_fields);
+    }
+
+    private void showToast(int stringID) {
+        Toast.makeText(this, stringID, Toast.LENGTH_LONG).show();
+    }
+
+}
+</script></code></pre>
+                <br />
+                7 - En el layout <span>activity_login.xml</span> agregamos un nuevo botón para permitir al usuario realizar el proceso de registro
+                <pre><code class="language-markup"><script type="prism-markup">    <!-- more code here -->
+
+    <Button
+        android:id="@+id/btnSingUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sing_up"
+        android:background="@color/accent"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal" />
+
+    <!-- more code here -->
+
+</script></code></pre>
+                <br />
+                8 - En la clase <span>LoginActivity.java</span> definimos el handler para el botón btnSingUp, el cual mostrará la nueva interfaz.
+                <pre><code class="language-java"><script type="prism-java">    /* more code here */
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch (id) {
+            /* more code here */
+            case R.id.btnSingUp:
+                Intent intent = new Intent(this, RegisterActivity.class);
+                startActivity(intent);
+                break;
+            /* more code here */
+        }
+    }
+
+    /* more code here */
+</script></code></pre>
+                <br />
+                <span style="color: #e91e63;">- It's time to run the project & test it-</span>
+                <div class="content-picture-container">
+                    <img class="content-picture wow zoomIn" src="images/login/2-singup.png" alt="login"/>
+                </div>
+                <span>Nota: Para que la actividad de registro se agregue al stack de navegación se requiere configurar el archivo AndroidManifest.xml agregando la propiedad android:parentActivityName a RegisterActivity</span>
+                <br /><br />
+                9 - Actualicemos el método validateUser de la clase <span>LoginActivity.java</span> para verificar sí existe un usuario persistido en la aplicación.
+                <pre><code class="language-java"><script type="prism-java">    /* more code here */
+    public void validateUser(Context context, String username, String password) {
+        if (username != null && !username.isEmpty()
+            && password != null && !password.isEmpty()) {
+            String localUsername = SharedPreferencesUtils.get(context, Constants.KEYS.USERNAME, null);
+            String localPassword = SharedPreferencesUtils.get(context, Constants.KEYS.PASSWORD, null);
+            if (username.equals(localUsername) && password.equals(localPassword)) {
+                User user = new User();
+                user.setUsername(username);
+                user.setPassword(password);
+                view.userFound(user);
+            } else {
+                view.userNotFound();
+            }
+        } else {
+            view.emptyFields();
+        }
+    }
+
+    /* more code here */
+</script></code></pre>
+                10 - Actualicemos la invocación del método validar usuario dentro de la clase <span>LoginActivity.java</span> para proporcionar el contexto
+                <pre><code class="language-java"><script type="prism-java">    /* more code here */
+    
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch (id) {
+            case R.id.btnLogin:
+                presenter.validateUser(this, txtUsername.getText().toString(), txtPassword.getText().toString());
+                break;
+            /* more code here */
+        }
+    }
+
+    /* more code here */
+</script></code></pre>
+                <br />
+                <span style="color: #e91e63;">- It's time to run the project & test it-</span>                
+                <div class="content-picture-container">
+                    <img class="content-picture wow zoomIn" src="images/login/3-login-sp.png" alt="login"/>
+                </div>
+                <br />
+                <span style="color: #e91e63;">- It's time to practice at home -</span>
+                <br />
+                Con el objetivo de practicar ambos temas, implemente en la aplicación lo siguiente:
+                <ul>
+                    <li>* Sí no existe un usuario persistido, la clase MainActivity envié al usuario a la interfaz de login.</li>
+                    <li>* Al seleccionar la opción log out, eliminar los datos del usuario persistido</li>
+                </ul>
+                
+            </div>                    
         </section>
         <!-- design patter section end -->
        	<!-- footer -->
