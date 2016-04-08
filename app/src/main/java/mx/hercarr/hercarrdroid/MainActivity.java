@@ -13,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import mx.hercarr.hercarrdroid.fragments.LocalFriendListFragment;
 import mx.hercarr.hercarrdroid.fragments.RemoteFriendListFragment;
@@ -22,7 +21,6 @@ public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
 
     private Toolbar toolbar;
-    private TextView txtOption;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +28,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         setToolbar();
         setNavigationDrawer();
-        findViews();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -106,10 +103,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-    }
-
-    private void findViews() {
-        txtOption = (TextView) findViewById(R.id.txtOption);
     }
 
     private void loadFragment(Fragment fragment) {
