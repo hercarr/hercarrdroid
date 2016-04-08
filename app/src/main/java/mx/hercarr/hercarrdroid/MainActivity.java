@@ -1,21 +1,22 @@
 package mx.hercarr.hercarrdroid;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import mx.hercarr.hercarrdroid.activities.LoginActivity;
+import mx.hercarr.hercarrdroid.fragments.LocalUserListFragment;
+import mx.hercarr.hercarrdroid.fragments.RemoteUserListFragment;
 
 public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
@@ -69,31 +70,25 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         switch (id)  {
             case R.id.nav_recycler_view:
-                showTitle(item.getTitle().toString());
+                loadFragment(LocalUserListFragment.class);
                 break;
             case R.id.nav_web_service:
-                showTitle(item.getTitle().toString());
+                loadFragment(RemoteUserListFragment.class);
                 break;
             case R.id.nav_view:
-                showTitle(item.getTitle().toString());
                 break;
             case R.id.nav_camera:
-                showTitle(item.getTitle().toString());
                 break;
             case R.id.nav_map:
-                showTitle(item.getTitle().toString());
                 break;
             case R.id.nav_settings:
-                showTitle(item.getTitle().toString());
                 break;
             case R.id.nav_logout:
-                showTitle(item.getTitle().toString());
                 break;
             default:
                 break;
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        closeDrawer();
         return true;
     }
 
@@ -117,8 +112,26 @@ public class MainActivity extends AppCompatActivity
         txtOption = (TextView) findViewById(R.id.txtOption);
     }
 
-    private void showTitle(String title) {
-        txtOption.setText(title);
+    private void loadFragment(Class<? extends Fragment> fragmentClass) {
+        Fragment fragment = null;
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager
+                .beginTransaction()
+                .replace(R.id.frameLayout, fragment)
+                .commit();
+        closeDrawer();
+    }
+
+    private void closeDrawer() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
     }
 
 }
