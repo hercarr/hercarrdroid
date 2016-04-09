@@ -31,6 +31,7 @@ public class FriendsPresenter {
         alberto.setLastName("Carrasco");
         alberto.setEmail("alberto.carrasco@gmail.com");
         alberto.setCell("5587345678");
+        alberto.setPicture("https://s3.amazonaws.com/uifaces/faces/twitter/mghoz/128.jpg");
         friends.add(alberto);
 
         Friend david = new Friend();
@@ -38,6 +39,7 @@ public class FriendsPresenter {
         david.setLastName("Torres");
         david.setEmail("david.torres@gmail.com");
         david.setCell("5673342398");
+        david.setPicture("https://s3.amazonaws.com/uifaces/faces/twitter/sauro/128.jpg");
         friends.add(david);
 
         Friend fatima = new Friend();
@@ -45,6 +47,7 @@ public class FriendsPresenter {
         fatima.setLastName("Torruco");
         fatima.setEmail("fatima.torruco@gmail.com");
         fatima.setCell("5598020305");
+        fatima.setPicture("https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg");
         friends.add(fatima);
 
         Friend gerardo = new Friend();
@@ -52,6 +55,7 @@ public class FriendsPresenter {
         gerardo.setLastName("Muñoz");
         gerardo.setEmail("gerardo.muñoz@gmail.com");
         gerardo.setCell("5534245576");
+        gerardo.setPicture("https://s3.amazonaws.com/uifaces/faces/twitter/rogie/128.jpg");
         friends.add(gerardo);
 
         Friend lila = new Friend();
@@ -59,6 +63,7 @@ public class FriendsPresenter {
         lila.setLastName("Hernández");
         lila.setEmail("lila.hernandez@gmail.com");
         lila.setCell("5512764597");
+        lila.setPicture("https://s3.amazonaws.com/uifaces/faces/twitter/allisongrayce/128.jpg");
         friends.add(lila);
 
         Friend noemi = new Friend();
@@ -66,6 +71,7 @@ public class FriendsPresenter {
         noemi.setLastName("Huerta");
         noemi.setEmail("noemi.huerta@gmail.com");
         noemi.setCell("5598356784");
+        noemi.setPicture("https://s3.amazonaws.com/uifaces/faces/twitter/jeanniehuang/128.jpg");
         friends.add(noemi);
 
         Friend monica = new Friend();
@@ -73,6 +79,7 @@ public class FriendsPresenter {
         monica.setLastName("Morales");
         monica.setEmail("monica.morales@gmail.com");
         noemi.setCell("5598753245");
+        monica.setPicture("https://s3.amazonaws.com/uifaces/faces/twitter/chloepark/128.jpg");
         friends.add(monica);
 
         return friends;

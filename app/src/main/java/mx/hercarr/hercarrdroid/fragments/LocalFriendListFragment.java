@@ -15,6 +15,7 @@ import mx.hercarr.hercarrdroid.R;
 import mx.hercarr.hercarrdroid.adapters.FriendsAdapter;
 import mx.hercarr.hercarrdroid.model.Friend;
 import mx.hercarr.hercarrdroid.presenter.FriendsPresenter;
+import mx.hercarr.hercarrdroid.util.DividerItemDecoration;
 import mx.hercarr.hercarrdroid.view.IFriendsView;
 
 public class LocalFriendListFragment extends Fragment
@@ -64,10 +65,11 @@ public class LocalFriendListFragment extends Fragment
     }
 
     private void setRecyclerView(List<Friend> friends) {
-        adapter = new FriendsAdapter(friends);
+        adapter = new FriendsAdapter(getActivity(), friends);
         rvFriends.setAdapter(adapter);
         rvFriends.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvFriends.setHasFixedSize(true);
+        rvFriends.addItemDecoration(new DividerItemDecoration(getActivity(), null));
     }
 
 }
