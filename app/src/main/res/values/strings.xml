@@ -31,4 +31,6 @@
     <string name="msg_register_user_success">Successfully registered!</string>
     <string name="msg_register_user_error">An error occurs when registering the user!</string>
     <string name="msg_register_empty_fields">Please, fill the required fields!</string>
+    <!-- friends layout -->
+    <string name="msg_empty_friends">You don\'t have friends yet.</string>
 </resources>
