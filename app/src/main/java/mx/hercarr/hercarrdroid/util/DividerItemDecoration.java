@@ -22,36 +22,10 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
     int mOrientation = -1;
 
-    public DividerItemDecoration(Context context, AttributeSet attrs) {
-        final TypedArray a = context.obtainStyledAttributes(attrs, new int[]{android.R.attr.listDivider});
+    public DividerItemDecoration(Context context) {
+        final TypedArray a = context.obtainStyledAttributes(null, new int[]{android.R.attr.listDivider});
         mDivider = a.getDrawable(0);
         a.recycle();
-    }
-
-    public DividerItemDecoration(Context context, AttributeSet attrs, boolean showFirstDivider, boolean showLastDivider) {
-        this(context, attrs);
-        mShowFirstDivider = showFirstDivider;
-        mShowLastDivider = showLastDivider;
-    }
-
-    public DividerItemDecoration(Context context, int resId) {
-        mDivider = ContextCompat.getDrawable(context, resId);
-    }
-
-    public DividerItemDecoration(Context context, int resId, boolean showFirstDivider, boolean showLastDivider) {
-        this(context, resId);
-        mShowFirstDivider = showFirstDivider;
-        mShowLastDivider = showLastDivider;
-    }
-
-    public DividerItemDecoration(Drawable divider) {
-        mDivider = divider;
-    }
-
-    public DividerItemDecoration(Drawable divider, boolean showFirstDivider, boolean showLastDivider) {
-        this(divider);
-        mShowFirstDivider = showFirstDivider;
-        mShowLastDivider = showLastDivider;
     }
 
     @Override
@@ -89,7 +63,6 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
             return;
         }
 
-        // Initialization needed to avoid compiler warning
         int left = 0, right = 0, top = 0, bottom = 0, size;
         int orientation = mOrientation != -1 ? mOrientation : getOrientation(parent);
         int childCount = parent.getChildCount();
@@ -98,7 +71,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
             size = mDivider.getIntrinsicHeight();
             left = parent.getPaddingLeft();
             right = parent.getWidth() - parent.getPaddingRight();
-        } else { //horizontal
+        } else {
             size = mDivider.getIntrinsicWidth();
             top = parent.getPaddingTop();
             bottom = parent.getHeight() - parent.getPaddingBottom();
@@ -111,7 +84,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
             if (orientation == LinearLayoutManager.VERTICAL) {
                 top = child.getTop() - params.topMargin - size;
                 bottom = top + size;
-            } else { //horizontal
+            } else {
                 left = child.getLeft() - params.leftMargin;
                 right = left + size;
             }
@@ -119,7 +92,6 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
             mDivider.draw(c);
         }
 
-        // show last divider
         if (mShowLastDivider && childCount > 0) {
             View child = parent.getChildAt(childCount - 1);
             if (parent.getChildAdapterPosition(child) == (state.getItemCount() - 1)) {
@@ -127,7 +99,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
                 if (orientation == LinearLayoutManager.VERTICAL) {
                     top = child.getBottom() + params.bottomMargin;
                     bottom = top + size;
-                } else { // horizontal
+                } else {
                     left = child.getRight() + params.rightMargin;
                     right = left + size;
                 }
@@ -143,8 +115,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
                 LinearLayoutManager layoutManager = (LinearLayoutManager) parent.getLayoutManager();
                 mOrientation = layoutManager.getOrientation();
             } else {
-                throw new IllegalStateException(
-                        "DividerItemDecoration can only be used with a LinearLayoutManager.");
+                throw new IllegalStateException("DividerItemDecoration can only be used with a LinearLayoutManager.");
             }
         }
         return mOrientation;

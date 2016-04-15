@@ -69,7 +69,7 @@ public class LocalFriendListFragment extends Fragment
         rvFriends.setAdapter(adapter);
         rvFriends.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvFriends.setHasFixedSize(true);
-        rvFriends.addItemDecoration(new DividerItemDecoration(getActivity(), null));
+        rvFriends.addItemDecoration(new DividerItemDecoration(getActivity()));
     }
 
 }

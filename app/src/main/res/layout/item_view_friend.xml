@@ -23,22 +23,24 @@
 
         <TextView
             android:id="@+id/lblName"
-            tools:text="The first name value"
+            tools:text="The full name value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/list_main_text" />
+            style="@style/list_friend_name" />
 
         <TextView
             android:id="@+id/lblEmail"
-            tools:text="The first name value"
+            tools:text="The email value"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            style="@style/list_friend_email" />
 
         <TextView
             android:id="@+id/lblCell"
-            tools:text="The first name value"
+            tools:text="The cell value"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            style="@style/list_friend_cell" />
 
     </LinearLayout>
 
