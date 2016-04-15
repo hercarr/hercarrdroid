@@ -57,21 +57,19 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendVi
         }
 
         public void bindFriend(Friend friend) {
-
-            Glide.with(context)
-                    .load(friend.getPicture())
-                    .centerCrop()
-                    .error(android.R.drawable.sym_def_app_icon)
-                    .crossFade()
-                    .into(imgProfile);
-
+            loadPicture(friend.getPicture());
             lblName.setText(friend.getFirstName() + " " + friend.getLastName());
             lblEmail.setText(friend.getEmail());
             lblCell.setText(friend.getCell());
         }
 
-        private void loadPicture() {
-
+        private void loadPicture(String pictureUrl) {
+            Glide.with(context)
+                 .load(pictureUrl)
+                 .centerCrop()
+                 .error(android.R.drawable.sym_def_app_icon)
+                 .crossFade()
+                 .into(imgProfile);
         }
 
     }
