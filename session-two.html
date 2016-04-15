@@ -38,6 +38,7 @@
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="session-one.html">Sesi&oacute;n # 1</a></li>
                     <li class="current"><a class="smoothscroll" href="#agenda">Sesi&oacute;n # 2</a></li>
+                    <li><a href="session-three.html">Sesi&oacute;n # 3</a></li>
                  </ul>
             </nav> 
             <div class="row banner">
@@ -53,7 +54,7 @@
                     <h3 class="wow fadeInUp"><span style="font-size: .6em;">Sí lo requieres, descarga la versión del proyecto de la sesión anterior</span></h3>
                     <hr />
                 </div>
-                <p align="center" style="margin-top: -14px;">                                        
+                <p align="center" style="margin-top: -14px;">
                     <a href="https://github.com/hercarr/hercarrdroid/archive/v1.0.zip" class="button" target="_blank"><i class="fa fa-download"></i> Descargar</a>
                 </p>
             </div>
@@ -888,385 +889,38 @@ public class RemoteFriendListFragment extends Fragment {
                 <span style="color: #e91e63;">- It's time to run the project & test it -</span>
                 <div class="content-picture-container">
                     <img class="content-picture wow zoomIn" src="images/nav-dra/5-load-fragment.png" alt="login"/>
-                </div>
-            </div>
-            <div class="header-col content-header">
-                <h2><span>Recycler View | View Holder | Card View</span></h2>                
+                </div>                                
             </div>            
-            <div class="row education">
-                <a href="http://developer.android.com/training/material/lists-cards.html" target="_blank"><span>RecyclerView</span></a> es un componente más avanzado y flexible que su predecesor <a href="http://developer.android.com/guide/topics/ui/layout/listview.html" target="_blank"><span>ListView</span></a>. Este elemento se ocupa para mostrar un conjunto de datos asegurando un mejor rendimiento de la aplicación al mantener los elementos visibles en forma limitada.
-                <br /><br />
-                <a href="http://developer.android.com/training/material/lists-cards.html" target="_blank"><span>CardView</span></a> es un componente de UI que permite mostrar información en forma agrupada, el cual nos permite incorporar comportamiento especificado en Material Design transparentemente.
-                <br /><br />
-                <a href="http://developer.android.com/reference/android/support/v7/widget/RecyclerView.ViewHolder.html" target="_blank"><span>ViewHolder</span></a> es un patrón de diseño requerido para el uso de RecyclerView. Este patrón es precisamente lo que permite mejorar el rendimiento de la aplicación al mostrar una gran cantidad de elementos dentro de un RecyclerView.
-                <br /><br />
-                <span>Nota: Con el objetivo de ver las diferencias entre un card view & un layout <i>normal</i> en esta sesión no haremos uso de card view, lo veremos en la sesión # 3.</span>
-                <br /><br />
-                Implementar un recycler view requiere la ejecución de varios pasos, para poner en práctica esto, vamos a incorporar a nuestra aplicación una lista de amigos realizando lo siguiente:
-                <br /><br />
-                1 - Agreguemos nuestro modelo <span>Friend.java</span>
-                <pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.model;
-
-public class Friend {
-
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String phone;
-    private String cell;
-    private String picture;
-
-    /* getters and setters here */
-
-}
-</script></code></pre>
-                2 - Incorporemos la dependencia de recycler view dentro del archivo <span>build.gradle</span>
-                <pre><code class="language-java"><script type="prism-java">compile 'com.github.bumptech.glide:glide:3.7.0'
-</script></code></pre>
-                3 - Definamos un elemento recycler view & textview dentro del layout <span>fragment_local_friend_list.xml</span>
-                <pre><code class="language-markup"><script type="prism-markup"><FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.LocalFriendListFragment">
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvFriends"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical" />
-
-    <TextView
-            android:id="@+id/lblEmptyFriends"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/msg_empty_friends" />
-
-</FrameLayout>
-</script></code></pre>
-                4 - Generemos un nuevo layout denominado <span>item_view_friend.xml</span> que represente la información a mostrar de nuestro amigo
-                <pre><code class="language-markup"><script type="prism-markup"><?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginTop="@dimen/list_margin"
-    android:layout_marginBottom="@dimen/list_margin"
-    android:layout_marginLeft="@dimen/list_margin"
-    android:layout_marginRight="@dimen/list_margin">
-
-    <TextView
-        android:id="@+id/lblName"
-        tools:text="The first name value"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-</RelativeLayout>
-</script></code></pre>
-                5 - Generemos una nueva clase denominada <span>FriendsAdapter.java</span>, aquí explicaremos a detalle cada uno de los elementos que la componen.
-                <pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.adapters;
-
-import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-
-import java.util.List;
-
-import mx.hercarr.hercarrdroid.R;
-import mx.hercarr.hercarrdroid.model.Friend;
-
-public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendViewHolder> {
-
-    private Context context;
-    private List<Friend> friends;
-
-    public FriendsAdapter(Context context, List<Friend> friends) {
-        this.context = context;
-        this.friends = friends;
-    }
-
-    @Override
-    public FriendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.cardview_friend, parent, false);
-        return new FriendViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(FriendViewHolder holder, int position) {
-        holder.bindFriend(friends.get(position));
-    }
-
-    @Override
-    public int getItemCount() {
-        return friends.size();
-    }
-
-    protected class FriendViewHolder extends RecyclerView.ViewHolder {
-
-        private ImageView imgProfile;
-        private TextView lblName;
-        private TextView lblEmail;
-        private TextView lblCell;
-
-        public FriendViewHolder(View itemView) {
-            super(itemView);
-            imgProfile = (ImageView) itemView.findViewById(R.id.imgProfile);
-            lblName = (TextView) itemView.findViewById(R.id.lblName);
-            lblEmail = (TextView) itemView.findViewById(R.id.lblEmail);
-            lblCell = (TextView) itemView.findViewById(R.id.lblCell);
-        }
-
-        public void bindFriend(Friend friend) {
-
-            Glide.with(context)
-                    .load(friend.getPicture())
-                    .centerCrop()
-                    .error(android.R.drawable.sym_def_app_icon)
-                    .crossFade()
-                    .into(imgProfile);
-
-            lblName.setText(friend.getFirstName() + " " + friend.getLastName());
-            lblEmail.setText(friend.getEmail());
-            lblCell.setText(friend.getCell());
-        }
-
-        private void loadPicture() {
-
-        }
-
-    }
-
-}
-</script></code></pre>
-                6 - Definamos la interfaz <span>IFriendsView.java</span> para declarar los métodos en los que se requiere mostrar un resultado al usuario.
-                <pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.view;
-
-import java.util.List;
-
-import mx.hercarr.hercarrdroid.model.Friend;
-
-public interface IFriendsView {
-
-    void loadFriendList(List<Friend> friends);
-    void showEmptyMessage();
-
-}
-</script></code></pre>
-                7 - Definamos la clase <span>FriendsPresenter.java</span> para incorporar la logica de negocio que permita obtener la lista de amigos.
-                <pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.presenter;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import mx.hercarr.hercarrdroid.model.Friend;
-import mx.hercarr.hercarrdroid.view.IFriendsView;
-
-public class FriendsPresenter {
-
-    private IFriendsView view;
-
-    public FriendsPresenter(IFriendsView view) {
-        this.view = view;
-    }
-
-    public void findFriends() {
-        List<Friend> friends = findLocalFriends();
-        if (friends.isEmpty()) {
-            view.showEmptyMessage();
-        } else {
-            view.loadFriendList(friends);
-        }
-    }
-
-    private List<Friend> findLocalFriends() {
-        List<Friend> friends = new ArrayList<>();
-
-        Friend alberto = new Friend();
-        alberto.setFirstName("Alberto");
-        alberto.setLastName("Carrasco");
-        friends.add(alberto);
-
-        Friend david = new Friend();
-        david.setFirstName("David");
-        david.setLastName("Torres");
-        friends.add(david);
-
-        Friend fatima = new Friend();
-        fatima.setFirstName("Fatima");
-        fatima.setLastName("Torruco");
-        friends.add(fatima);
-
-        Friend gerardo = new Friend();
-        gerardo.setFirstName("Gerardo");
-        gerardo.setLastName("Muñoz");
-        friends.add(gerardo);
-
-        Friend lila = new Friend();
-        lila.setFirstName("Lila");
-        lila.setLastName("Hernández");
-        friends.add(lila);
-
-        Friend noemi = new Friend();
-        noemi.setFirstName("Noemi");
-        noemi.setLastName("Huerta");
-        friends.add(noemi);
-
-        Friend monica = new Friend();
-        monica.setFirstName("Monica");
-        monica.setLastName("Morales");
-        friends.add(monica);
-
-        return friends;
-    }
-
-}
-</script></code></pre>
-                8 - Actualicemos la clase <span>LocalFriendListFragment.java</span> para:
-                <ul>
-                    <li>* Instanciar al presentador</li>
-                    <li>* Obtener la referencia del recycler view & textview</li>
-                    <li>* Invocar el método del presentador que encuentra los amigos</li>
-                    <li>* Implementemos la interfaz IFriendsView</li>
-                    <li>* Enlacemos nuestro recycler view &rarr; adapter &rarr; view holder &rarr; item view</li>
-                </ul>
-                Una vez realizado lo anterior, nuestra clase tendra la siguiente apariencia
-                <pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.fragments;
-
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
-import java.util.List;
-
-import mx.hercarr.hercarrdroid.R;
-import mx.hercarr.hercarrdroid.adapters.FriendsAdapter;
-import mx.hercarr.hercarrdroid.model.Friend;
-import mx.hercarr.hercarrdroid.presenter.FriendsPresenter;
-import mx.hercarr.hercarrdroid.util.DividerItemDecoration;
-import mx.hercarr.hercarrdroid.view.IFriendsView;
-
-public class LocalFriendListFragment extends Fragment
-    implements IFriendsView {
-
-    private FriendsPresenter presenter;
-
-    private RecyclerView rvFriends;
-    private TextView lblEmptyFriends;
-
-    private FriendsAdapter adapter;
-
-    public LocalFriendListFragment() {
-
-    }
-
-    public static LocalFriendListFragment newInstance() {
-        LocalFriendListFragment fragment = new LocalFriendListFragment();
-        return fragment;
-    }
-
-    public void init(View view) {
-        presenter = new FriendsPresenter(this);
-        rvFriends = (RecyclerView) view.findViewById(R.id.rvFriends);
-        lblEmptyFriends = (TextView) view.findViewById(R.id.lblEmptyFriends);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_local_friend_list, container, false);
-        init(view);
-        presenter.findFriends();
-        return view;
-    }
-
-    @Override
-    public void loadFriendList(List<Friend> friends) {
-        rvFriends.setVisibility(View.VISIBLE);
-        lblEmptyFriends.setVisibility(View.GONE);
-        setRecyclerView(friends);
-    }
-
-    @Override
-    public void showEmptyMessage() {
-        rvFriends.setVisibility(View.GONE);
-        lblEmptyFriends.setVisibility(View.VISIBLE);
-    }
-
-    private void setRecyclerView(List<Friend> friends) {
-        adapter = new FriendsAdapter(getActivity(), friends);
-        rvFriends.setAdapter(adapter);
-        rvFriends.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rvFriends.setHasFixedSize(true);
-        rvFriends.addItemDecoration(new DividerItemDecoration(getActivity(), null));
-    }
-
-}
-</script></code></pre>
-                <br />
-                <span style="color: #e91e63;">- It's time to run the project & test it-</span>
-                <div class="content-picture-container">
-                    <img class="content-picture wow zoomIn" src="images/rv/1-rv.png" alt="login"/>
-                </div>
-
-                ...
-                1 - Agregar el modelo Friend.java
-                2 - Agregar la dependiencia del recycler view
-                3 - definimos un elemento recycler view & textview en el layout fragment_local_friend_list.xml
-                4 - creamos el cardview_friend.xml que represente nuestro fiend (por el momento solo colocar el nombre)
-                5 - creamos el adaptador & viewholder
-                6 - definimos el IFriendsView
-                7 - definimos el FriendsPresenter
-                8 - enlazamos el recycler con el adaptador
-                    obtenemos las referencias a los elementos ui
-                    implementamos la IFriendsView & invocamos al presentador
-
-                    picture
-
-                nuestro recycler view se ve un poco fro, configuremos nuestro cardview
-
-                * agreguemos más propiedades de nuestros amigos (presenter)
-                * modificamos el carcview para mostrar lás propiedades
-                * agreguemos el divider item
-                * definimos un estilo para el texto principal del listado (nombre)
-                ahora vamos a darle un rostro a nuestro amigo
-                * agreguemos la libreria de glide
-                * vamos a http://uifaces.com/ y escoge el rostro de tus amigos (128) & asigna la url a la propiedad picture
-                * actualicemos el adaptador
-                * actualizamos la invocación al adaptador
-                * ejecutar
-                * ¿porque no muestra la imagen?
-                * agreguemos el permiso de INTERNET
-                * problemos & salgamos & regresemos al fragmento
-                * agreguemos un tamaño a la imagen para corregir esto
-
-                9 - agreguemos la utilería DividerItemDecoration.java
-                10 - agreguemos la utilería SpaceItemDecoration.java
-                11 - configuremos el rv con las utelerias
-
-                notify & decorarion & animators
-                recyclerView.setHasFixedSize(true);
-                layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-
-                practica:
-
-                * editar el cardview para mostrar el resto de las propiedades del friend
-
-                tarea: enlazar el evento de click al elemento del listado & mostar una nueva actividad con el detalle del amigo
-            </div>
         </section>
         <!-- section two end -->
+        <!-- source code -->
+        <section id="topic">
+        <div class="row bio-container">
+            <div class="twelve columns bio-inner">
+                <div class="six columns bio-left"> 
+                    <h2>Código Fuente</h2>
+                    <div class="pp-container">                      
+                        <img class="picture wow zoomIn"  src="images/source-code.png" alt="" style="background: white; padding: 24px;" />
+                    </div>
+                </div>
+                <div class="six columns main-col wow fadeIn">
+                    <div class="arrow-left"></div>
+                    <p>
+                        <h3>
+                            Sí lo requieres, descarga la versión del proyecto hasta la primera parte de esta sección.
+                        </h3>
+                    </p>
+                    <div class="row">            
+                        <div class="six columns download">
+                            <p align="center">                                
+                                <a href="https://github.com/hercarr/hercarrdroid/archive/v1.1.zip" class="button" target="_blank"><i class="fa fa-download"></i>Descargar</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </section>
        	<!-- footer -->
         <footer>
             <div class="row">
