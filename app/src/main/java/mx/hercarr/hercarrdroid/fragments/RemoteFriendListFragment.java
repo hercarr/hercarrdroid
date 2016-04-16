@@ -42,7 +42,7 @@ public class RemoteFriendListFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_remote_friend_list, container, false);
         init(view);
-        presenter.findFriends();
+        presenter.findRemoteFriends();
         return view;
     }
 

@@ -14,16 +14,7 @@ public class FriendsPresenter {
         this.view = view;
     }
 
-    public void findFriends() {
-        List<Friend> friends = findLocalFriends();
-        if (friends.isEmpty()) {
-            view.showEmptyMessage();
-        } else {
-            view.loadFriendList(friends);
-        }
-    }
-
-    private List<Friend> findLocalFriends() {
+    public void findLocalFriends() {
         List<Friend> friends = new ArrayList<>();
 
         Friend alberto = new Friend();
@@ -82,7 +73,17 @@ public class FriendsPresenter {
         monica.setPicture("https://s3.amazonaws.com/uifaces/faces/twitter/chloepark/128.jpg");
         friends.add(monica);
 
-        return friends;
+        view.loadFriendList(friends);
     }
+
+    public void findRemoteFriends() {
+        List<Friend> friends = new ArrayList<>();
+        if (friends.isEmpty()) {
+            view.showEmptyMessage();
+        } else {
+            view.loadFriendList(friends);
+        }
+    }
+
 
 }
