@@ -4,9 +4,18 @@
     android:layout_height="match_parent"
     tools:context=".fragments.RemoteFriendListFragment">
 
-    <TextView
-        android:layout_width="match_parent"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvFriends"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="remote users" />
+        android:scrollbars="vertical" />
+
+    <TextView
+        android:id="@+id/lblEmptyFriends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/msg_empty_friends" />
 
 </FrameLayout>

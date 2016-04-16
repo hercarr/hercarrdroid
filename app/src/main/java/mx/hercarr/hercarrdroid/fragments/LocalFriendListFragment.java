@@ -37,12 +37,6 @@ public class LocalFriendListFragment extends Fragment
         return fragment;
     }
 
-    public void init(View view) {
-        presenter = new FriendsPresenter(this);
-        rvFriends = (RecyclerView) view.findViewById(R.id.rvFriends);
-        lblEmptyFriends = (TextView) view.findViewById(R.id.lblEmptyFriends);
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_local_friend_list, container, false);
@@ -62,6 +56,12 @@ public class LocalFriendListFragment extends Fragment
     public void showEmptyMessage() {
         rvFriends.setVisibility(View.GONE);
         lblEmptyFriends.setVisibility(View.VISIBLE);
+    }
+
+    private void init(View view) {
+        presenter = new FriendsPresenter(this);
+        rvFriends = (RecyclerView) view.findViewById(R.id.rvFriends);
+        lblEmptyFriends = (TextView) view.findViewById(R.id.lblEmptyFriends);
     }
 
     private void setRecyclerView(List<Friend> friends) {
