@@ -2,6 +2,7 @@ package mx.hercarr.hercarrdroid.adapters;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import mx.hercarr.hercarrdroid.R;
@@ -22,10 +24,13 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendVi
     private final int layoutId;
     private List<Friend> friends;
 
-    public FriendsAdapter(Context context, List<Friend> friends, @LayoutRes int layoutId) {
+    public FriendsAdapter(Context context, List<Friend> friends, int layoutId) {
         this.context = context;
         this.layoutId = layoutId;
-        this.friends = friends;
+        if (friends != null)
+            this.friends = friends;
+        else
+            this.friends = new ArrayList<>();
     }
 
     @Override

@@ -15,7 +15,6 @@ import mx.hercarr.hercarrdroid.R;
 import mx.hercarr.hercarrdroid.adapters.FriendsAdapter;
 import mx.hercarr.hercarrdroid.model.Friend;
 import mx.hercarr.hercarrdroid.presenter.FriendsPresenter;
-import mx.hercarr.hercarrdroid.util.DividerItemDecoration;
 import mx.hercarr.hercarrdroid.view.IFriendsView;
 
 public class RemoteFriendListFragment extends Fragment
@@ -42,6 +41,7 @@ public class RemoteFriendListFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_remote_friend_list, container, false);
         init(view);
+        setRecyclerView(null);
         presenter.findRemoteFriends();
         return view;
     }

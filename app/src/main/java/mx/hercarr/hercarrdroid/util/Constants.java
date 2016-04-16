@@ -16,4 +16,16 @@ public class Constants {
         public static final String LOGGED = "logged";
     }
 
+    public static class JsonKeys {
+        public static final String RESULTS = "results";
+        public static final String NAME = "name";
+        public static final String FIRST = "first";
+        public static final String LAST = "last";
+        public static final String EMAIL = "email";
+        public static final String PHONE = "phone";
+        public static final String CELL = "cell";
+        public static final String PICTURE = "picture";
+        public static final String MEDIUM = "medium";
+    }
+
 }

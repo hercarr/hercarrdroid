@@ -1,10 +1,23 @@
 package mx.hercarr.hercarrdroid.presenter;
 
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import mx.hercarr.hercarrdroid.model.Friend;
+import mx.hercarr.hercarrdroid.rest.RandomUserApi;
+import mx.hercarr.hercarrdroid.util.Constants;
 import mx.hercarr.hercarrdroid.view.IFriendsView;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FriendsPresenter {
 
@@ -77,13 +90,48 @@ public class FriendsPresenter {
     }
 
     public void findRemoteFriends() {
-        List<Friend> friends = new ArrayList<>();
-        if (friends.isEmpty()) {
-            view.showEmptyMessage();
-        } else {
-            view.loadFriendList(friends);
-        }
+        Call<ResponseBody> call = RandomUserApi.getFriendsApi().findFriends();
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                view.loadFriendList(parseRandomUsers(response));
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                view.showEmptyMessage();
+            }
+        });
     }
 
+    private List<Friend> parseRandomUsers(Response<ResponseBody> response) {
+        String json;
+        List<Friend> friends = new ArrayList<>();
+        try {
+            json = response.body().string();
+            if (json != null) {
+                JSONObject jsonResponse = new JSONObject(json);
+                JSONArray jsonUsers = jsonResponse.getJSONArray(Constants.JsonKeys.RESULTS);
+                JSONObject jsonUser;
+                Friend friend;
+                for (int i = 0; i < jsonUsers.length(); i++) {
+                    jsonUser = jsonUsers.getJSONObject(i);
+                    friend = new Friend();
+                    friend.setFirstName(jsonUser.getJSONObject(Constants.JsonKeys.NAME).getString(Constants.JsonKeys.FIRST));
+                    friend.setLastName(jsonUser.getJSONObject(Constants.JsonKeys.NAME).getString(Constants.JsonKeys.LAST));
+                    friend.setEmail(jsonUser.getString(Constants.JsonKeys.EMAIL));
+                    friend.setCell(jsonUser.getString(Constants.JsonKeys.CELL));
+                    friend.setPhone(jsonUser.getString(Constants.JsonKeys.PHONE));
+                    friend.setPicture(jsonUser.getJSONObject(Constants.JsonKeys.PICTURE).getString(Constants.JsonKeys.MEDIUM));
+                    friends.add(friend);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return friends;
+    }
 
 }
