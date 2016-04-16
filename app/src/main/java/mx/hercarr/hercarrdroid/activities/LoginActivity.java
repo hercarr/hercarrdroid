@@ -1,14 +1,14 @@
 package mx.hercarr.hercarrdroid.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import mx.hercarr.hercarrdroid.MainActivity;
 import mx.hercarr.hercarrdroid.R;
 import mx.hercarr.hercarrdroid.model.User;
 import mx.hercarr.hercarrdroid.presenter.LoginPresenter;
@@ -59,8 +59,9 @@ public class LoginActivity extends AppCompatActivity
 
     @Override
     public void userFound(User user) {
-        /* TODO - here redirect to the activity main */
-        Toast.makeText(this, "Hello  " + user.getUsername() + "!", Toast.LENGTH_LONG).show();
+        LoginPresenter.setLogin(this);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     @Override

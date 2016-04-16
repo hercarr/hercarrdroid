@@ -9,7 +9,7 @@ public class SharedPreferencesUtils {
     public static void save(Context context, String key, String value) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(key,value);
+        editor.putString(key, value);
         editor.commit();
     }
 
@@ -20,6 +20,23 @@ public class SharedPreferencesUtils {
         } catch (Exception e) {
             e.printStackTrace();
             return defaultValue;
+        }
+    }
+
+    public static void save(Context context, String key, boolean value) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(key, value);
+        editor.commit();
+    }
+
+    public static boolean get(Context context, String key) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        try {
+            return sharedPreferences.getBoolean(key, false);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 

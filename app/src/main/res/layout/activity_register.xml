@@ -10,49 +10,86 @@
     android:orientation="vertical"
     tools:context="mx.hercarr.hercarrdroid.activities.RegisterActivity">
 
-    <EditText
-        android:id="@+id/txtUsername"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/username"
-        android:layout_gravity="center_horizontal" />
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/txtPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:layout_gravity="center_horizontal" />
+        <EditText
+            android:id="@+id/txtUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/username"
+            android:layout_gravity="center_horizontal" />
 
-    <EditText
-        android:id="@+id/txtFirstName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/firstName"
-        android:layout_gravity="center_horizontal" />
+    </android.support.design.widget.TextInputLayout>
 
-    <EditText
-        android:id="@+id/txtLastName"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/lastName"
-        android:layout_gravity="center_horizontal" />
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/txtEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress"
-        android:layout_gravity="center_horizontal" />
+        <EditText
+            android:id="@+id/txtPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:layout_gravity="center_horizontal" />
 
-    <EditText
-        android:id="@+id/txtPhone"
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/phone"
-        android:layout_gravity="center_horizontal" />
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/txtFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/firstName"
+            android:layout_gravity="center_horizontal" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/txtLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/lastName"
+            android:layout_gravity="center_horizontal" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/txtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:layout_gravity="center_horizontal" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/txtPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/phone"
+            android:inputType="phone"
+            android:layout_gravity="center_horizontal" />
+
+    </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/btnSingUp"

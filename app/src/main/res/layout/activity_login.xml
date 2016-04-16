@@ -10,36 +10,57 @@
     android:orientation="vertical"
     tools:context="mx.hercarr.hercarrdroid.activities.LoginActivity">
 
-    <EditText
-        android:id="@+id/txtUsername"
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/txtUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/username"
+            android:layout_gravity="center_horizontal" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/txtPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:layout_gravity="center_horizontal" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/username"
-        android:layout_gravity="center_horizontal" />
+        android:orientation="horizontal"
+        android:gravity="center">
 
-    <EditText
-        android:id="@+id/txtPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:layout_gravity="center_horizontal" />
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login"
+            android:background="@color/accent"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginRight="@dimen/activity_horizontal_margin" />
 
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/login"
-        android:background="@color/accent"
-        android:layout_gravity="center_horizontal" />
+        <Button
+            android:id="@+id/btnSingUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sing_up"
+            android:background="@color/accent"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin" />
 
-    <Button
-        android:id="@+id/btnSingUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sing_up"
-        android:background="@color/accent"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal" />
+    </LinearLayout>
 
 </LinearLayout>

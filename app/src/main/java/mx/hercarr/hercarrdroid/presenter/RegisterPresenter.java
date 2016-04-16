@@ -20,12 +20,12 @@ public class RegisterPresenter {
                 && firstName != null && !firstName.isEmpty()
                 && lastName!= null && !lastName.isEmpty()
                 && email!= null && !email.isEmpty()) {
-            SharedPreferencesUtils.save(context, Constants.KEYS.USERNAME, username);
-            SharedPreferencesUtils.save(context, Constants.KEYS.PASSWORD, password);
-            SharedPreferencesUtils.save(context, Constants.KEYS.FIRSTNAME, firstName);
-            SharedPreferencesUtils.save(context, Constants.KEYS.LASTNAME, lastName);
-            SharedPreferencesUtils.save(context, Constants.KEYS.EMAIL, email);
-            SharedPreferencesUtils.save(context, Constants.KEYS.PHONE, phone);
+            SharedPreferencesUtils.save(context, Constants.Keys.USERNAME, username);
+            SharedPreferencesUtils.save(context, Constants.Keys.PASSWORD, password);
+            SharedPreferencesUtils.save(context, Constants.Keys.FIRST_NAME, firstName);
+            SharedPreferencesUtils.save(context, Constants.Keys.LAST_NAME, lastName);
+            SharedPreferencesUtils.save(context, Constants.Keys.EMAIL, email);
+            SharedPreferencesUtils.save(context, Constants.Keys.PHONE, phone);
             view.registered(true);
         } else {
             view.emptyFields();

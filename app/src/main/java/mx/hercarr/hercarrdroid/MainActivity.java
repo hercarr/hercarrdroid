@@ -1,9 +1,8 @@
 package mx.hercarr.hercarrdroid;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
@@ -12,10 +11,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 
+import mx.hercarr.hercarrdroid.activities.LoginActivity;
 import mx.hercarr.hercarrdroid.fragments.LocalFriendListFragment;
 import mx.hercarr.hercarrdroid.fragments.RemoteFriendListFragment;
+import mx.hercarr.hercarrdroid.presenter.LoginPresenter;
 
 public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        validateSession();
         setToolbar();
         setNavigationDrawer();
         /* TODO - here verify the local user */
@@ -71,12 +72,20 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_settings:
                 break;
             case R.id.nav_logout:
+                logout();
                 break;
             default:
                 break;
         }
         closeDrawer();
         return true;
+    }
+
+    private void validateSession() {
+        if (!LoginPresenter.isLogged(this)) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void setToolbar() {
@@ -107,6 +116,13 @@ public class MainActivity extends AppCompatActivity
     private void closeDrawer() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+    }
+
+    private void logout() {
+        LoginPresenter.setLogout(this);
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }

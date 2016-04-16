@@ -18,8 +18,8 @@ public class LoginPresenter {
     public void validateUser(Context context, String username, String password) {
         if (username != null && !username.isEmpty()
             && password != null && !password.isEmpty()) {
-            String localUsername = SharedPreferencesUtils.get(context, Constants.KEYS.USERNAME, null);
-            String localPassword = SharedPreferencesUtils.get(context, Constants.KEYS.PASSWORD, null);
+            String localUsername = SharedPreferencesUtils.get(context, Constants.Keys.USERNAME, null);
+            String localPassword = SharedPreferencesUtils.get(context, Constants.Keys.PASSWORD, null);
             if (username.equals(localUsername) && password.equals(localPassword)) {
                 User user = new User();
                 user.setUsername(username);
@@ -31,6 +31,18 @@ public class LoginPresenter {
         } else {
             view.emptyFields();
         }
+    }
+
+    public static void setLogin(Context context) {
+        SharedPreferencesUtils.save(context, Constants.Keys.LOGGED, true);
+    }
+
+    public static void setLogout(Context context) {
+        SharedPreferencesUtils.save(context, Constants.Keys.LOGGED, String.valueOf(false));
+    }
+
+    public static boolean isLogged(Context context) {
+        return SharedPreferencesUtils.get(context, Constants.Keys.LOGGED);
     }
 
 }
