@@ -65,7 +65,7 @@ public class LocalFriendListFragment extends Fragment
     }
 
     private void setRecyclerView(List<Friend> friends) {
-        adapter = new FriendsAdapter(getActivity(), friends);
+        adapter = new FriendsAdapter(getActivity(), friends, R.layout.item_view_friend);
         rvFriends.setAdapter(adapter);
         rvFriends.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvFriends.setHasFixedSize(true);

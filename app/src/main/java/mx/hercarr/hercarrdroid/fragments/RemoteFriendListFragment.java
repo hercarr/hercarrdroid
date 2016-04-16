@@ -66,11 +66,10 @@ public class RemoteFriendListFragment extends Fragment
     }
 
     private void setRecyclerView(List<Friend> friends) {
-        adapter = new FriendsAdapter(getActivity(), friends);
+        adapter = new FriendsAdapter(getActivity(), friends, R.layout.card_view_friend);
         rvFriends.setAdapter(adapter);
         rvFriends.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvFriends.setHasFixedSize(true);
-        rvFriends.addItemDecoration(new DividerItemDecoration(getActivity()));
     }
 
 }

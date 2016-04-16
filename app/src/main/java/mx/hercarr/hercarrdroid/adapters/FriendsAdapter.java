@@ -1,6 +1,7 @@
 package mx.hercarr.hercarrdroid.adapters;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,17 +18,19 @@ import mx.hercarr.hercarrdroid.model.Friend;
 
 public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendViewHolder> {
 
-    private Context context;
+    private final Context context;
+    private final int layoutId;
     private List<Friend> friends;
 
-    public FriendsAdapter(Context context, List<Friend> friends) {
+    public FriendsAdapter(Context context, List<Friend> friends, @LayoutRes int layoutId) {
         this.context = context;
+        this.layoutId = layoutId;
         this.friends = friends;
     }
 
     @Override
     public FriendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_view_friend, parent, false);
+        View view = LayoutInflater.from(context).inflate(layoutId, parent, false);
         return new FriendViewHolder(view);
     }
 
