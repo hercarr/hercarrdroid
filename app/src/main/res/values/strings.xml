@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Hercarrdroid</string>
+    <!-- activities title section -->
+    <string name="activity_login">Login</string>
+    <string name="activity_sing_up">Sing Up</string>
     <!-- navigation drawer section -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -13,4 +16,21 @@
     <string name="title_log_out">Log out</string>
     <!-- action section -->
     <string name="action_about">About</string>
+    <!-- login layout -->
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Log in</string>
+    <string name="msg_user_not_found">User not found, try again!</string>
+    <string name="msg_login_empty_fields">The username and password are required!</string>
+    <!-- register layout -->
+    <string name="firstName">First name</string>
+    <string name="lastName">Last name</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="sing_up">Sing Up</string>
+    <string name="msg_register_user_success">Successfully registered!</string>
+    <string name="msg_register_user_error">An error occurs when registering the user!</string>
+    <string name="msg_register_empty_fields">Please, fill the required fields!</string>
+    <!-- friends layout -->
+    <string name="msg_empty_friends">You don\'t have friends yet.</string>
 </resources>

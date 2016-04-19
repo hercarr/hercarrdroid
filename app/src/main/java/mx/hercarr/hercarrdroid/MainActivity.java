@@ -1,42 +1,35 @@
 package mx.hercarr.hercarrdroid;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
+
+import mx.hercarr.hercarrdroid.activities.LoginActivity;
+import mx.hercarr.hercarrdroid.fragments.LocalFriendListFragment;
+import mx.hercarr.hercarrdroid.fragments.RemoteFriendListFragment;
+import mx.hercarr.hercarrdroid.presenter.LoginPresenter;
 
 public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
 
     private Toolbar toolbar;
-    private TextView txtOption;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        validateSession();
         setToolbar();
         setNavigationDrawer();
-        findViews();
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null)
-                        .show();
-            }
-        });
+        /* TODO - here verify the local user */
     }
 
     @Override
@@ -65,32 +58,34 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         switch (id)  {
             case R.id.nav_recycler_view:
-                showTitle(item.getTitle().toString());
+                loadFragment(LocalFriendListFragment.newInstance());
                 break;
             case R.id.nav_web_service:
-                showTitle(item.getTitle().toString());
+                loadFragment(RemoteFriendListFragment.newInstance());
                 break;
             case R.id.nav_view:
-                showTitle(item.getTitle().toString());
                 break;
             case R.id.nav_camera:
-                showTitle(item.getTitle().toString());
                 break;
             case R.id.nav_map:
-                showTitle(item.getTitle().toString());
                 break;
             case R.id.nav_settings:
-                showTitle(item.getTitle().toString());
                 break;
             case R.id.nav_logout:
-                showTitle(item.getTitle().toString());
+                logout();
                 break;
             default:
                 break;
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        closeDrawer();
         return true;
+    }
+
+    private void validateSession() {
+        if (!LoginPresenter.isLogged(this)) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void setToolbar() {
@@ -109,12 +104,25 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    private void findViews() {
-        txtOption = (TextView) findViewById(R.id.txtOption);
+    private void loadFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager
+                .beginTransaction()
+                .replace(R.id.frameLayout, fragment)
+                .commit();
+        closeDrawer();
     }
 
-    private void showTitle(String title) {
-        txtOption.setText(title);
+    private void closeDrawer() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+    }
+
+    private void logout() {
+        LoginPresenter.setLogout(this);
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }
