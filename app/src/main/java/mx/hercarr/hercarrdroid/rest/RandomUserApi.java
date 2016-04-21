@@ -5,9 +5,7 @@ import retrofit2.Retrofit;
 public class RandomUserApi {
 
     private static final String URL_BASE = "http://api.randomuser.me";
-
     private static Retrofit retrofit;
-
     private static FriendsApi friendsApi;
 
     private RandomUserApi() {
