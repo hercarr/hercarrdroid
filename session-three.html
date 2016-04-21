@@ -79,10 +79,625 @@
         <section id="agenda">           
             <h1 class="section-title wow fadeInDown">REST API</h1>            
             <div class="header-col content-header">
-                <h2><span>Retrofit</span></h2>                
+                <h2><span>Consumo de un REST API</span></h2>                
             </div>            
             <div class="row education">
-                ...
+                En nuestra aplicación, para realizar la invocación de servicios Web basados en REST utilizaremos <a href="http://square.github.io/retrofit/" target="_blank">retrofit</a>, que es una liberia que nos permite realizar peticiones HTTP en una forma fácil al simplificar las tareas comunes que estan presente en cualquier peticion Web.
+                <br />
+                Con el uso de retrofit, incorporaremos a nuestro aplicación la funcionalidad de mostrar amigos pero obteniendolos de un recurso Web. Para ello primero configuremos nuestro listado de amigos remotos en forma similar al listado de amigos locales.
+                <br />
+                1 - Modifiquemos el layout <span>fragment_local_friend_list.xml</span> para incorporar dentro del layout el recycler view & textview requeridos.
+                <pre><code class="language-markup"><script type="prism-markup"><FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.LocalFriendListFragment">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvFriends"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical" />
+
+    <TextView
+	        android:id="@+id/lblEmptyFriends"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:textAppearance="?android:attr/textAppearanceLarge"
+	        android:textColor="@color/accent"
+	        android:text="@string/msg_empty_friends" />
+
+</FrameLayout>
+</script></code></pre>
+				2 - Ahora, editemos la clase <span>RemoteFriendListFragment.java</span> para:
+				<ul>
+				    <li>* Definir las referencias del presenter, recycler view, textview y el adaptador</li>
+				    <li>* Obtener las instancias de los objetos antes mencionados</li>
+				    <li>* Invocar el método findLocalFriends() del presentador para que temporalmente obtenga el origen de datos de forma local</li>
+				    <li>* Implementar la interfaz IFriendsView</li>
+				    <li>* Configurar nuestro recycler view</li>
+				</ul>
+				<pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.fragments;
+
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import java.util.List;
+
+import mx.hercarr.hercarrdroid.R;
+import mx.hercarr.hercarrdroid.adapters.FriendsAdapter;
+import mx.hercarr.hercarrdroid.model.Friend;
+import mx.hercarr.hercarrdroid.presenter.FriendsPresenter;
+import mx.hercarr.hercarrdroid.util.DividerItemDecoration;
+import mx.hercarr.hercarrdroid.view.IFriendsView;
+
+public class LocalFriendListFragment extends Fragment
+    implements IFriendsView {
+
+    private FriendsPresenter presenter;
+
+    private RecyclerView rvFriends;
+    private TextView lblEmptyFriends;
+
+    private FriendsAdapter adapter;
+
+    public LocalFriendListFragment() {
+
+    }
+
+    public static LocalFriendListFragment newInstance() {
+        LocalFriendListFragment fragment = new LocalFriendListFragment();
+        return fragment;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_local_friend_list, container, false);
+        init(view);
+        presenter.findLocalFriends();
+        return view;
+    }
+
+    @Override
+    public void loadFriendList(List<Friend> friends) {
+        rvFriends.setVisibility(View.VISIBLE);
+        lblEmptyFriends.setVisibility(View.GONE);
+        setRecyclerView(friends);
+    }
+
+    @Override
+    public void showEmptyMessage() {
+        rvFriends.setVisibility(View.GONE);
+        lblEmptyFriends.setVisibility(View.VISIBLE);
+    }
+
+    private void init(View view) {
+        presenter = new FriendsPresenter(this);
+        rvFriends = (RecyclerView) view.findViewById(R.id.rvFriends);
+        lblEmptyFriends = (TextView) view.findViewById(R.id.lblEmptyFriends);
+    }
+
+    private void setRecyclerView(List<Friend> friends) {
+        adapter = new FriendsAdapter(getActivity(), friends, R.layout.item_view_friend);
+        rvFriends.setAdapter(adapter);
+        rvFriends.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvFriends.setHasFixedSize(true);
+        rvFriends.addItemDecoration(new DividerItemDecoration(getActivity()));
+    }
+
+}				
+</script></code></pre>
+				<br />
+				Lo anterior, permitirá mostrar en pantalla la lista de amigos  en forma similar a la consulta de amigos locales, el objetivo de esto es nuevamente revisar los elementos involucrados en la contrucción de un listado. Posteriormente, la lista de amigos se obtendrá de un Web Service.
+				<br />
+				<br />
+                <span style="color: #e91e63;">- It's time to run the project & test it-</span>
+                <div class="content-picture-container">
+                    <img class="content-picture wow zoomIn" src="images/ws/1-ws.png" alt=""/>
+                </div>
+                3 - Ahora, haremos uso del widget CardView para mostrar en una forma diferente cada uno de los elementos del listado, para esto primero es necesario agregar la dependencia en el archivo <span>build.gradle</span>
+                <pre><code class="language-java"><script type="prism-java">compile 'com.android.support:cardview-v7:23.1.1'
+</script></code></pre>
+				4 - Generemos el layout <span>card_view_friend.xml</span> que tendrá una distribuición similar al layout <span>item_view_friend.xml</span> con la diferencia que utilizaremos el widget CardView
+				<pre><code class="language-markup"><script type="prism-markup"><?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/card_margin"
+    android:layout_marginBottom="@dimen/card_margin"
+    android:layout_marginLeft="@dimen/list_margin"
+    android:layout_marginRight="@dimen/list_margin"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="@dimen/card_corner_radius"
+        card_view:cardElevation="@dimen/card_elevation"
+        card_view:cardUseCompatPadding="true">
+
+        <RelativeLayout
+		            android:layout_width="match_parent"
+		            android:layout_height="match_parent">
+
+            <ImageView
+			                android:id="@+id/imgProfile"
+			                android:src="@android:drawable/sym_def_app_icon"
+			                android:layout_width="64dp"
+			                android:layout_height="64dp" />
+
+            <LinearLayout
+				                android:layout_width="match_parent"
+				                android:layout_height="wrap_content"
+				                android:orientation="vertical"
+				                android:layout_toRightOf="@+id/imgProfile"
+				                android:layout_marginLeft="@dimen/list_margin">
+
+                <TextView
+					                    android:id="@+id/lblName"
+					                    tools:text="The full name value"
+					                    android:layout_width="match_parent"
+					                    android:layout_height="wrap_content"
+					                    style="@style/list_friend_name" />
+
+                <TextView
+					                    android:id="@+id/lblEmail"
+					                    tools:text="The email value"
+					                    android:layout_width="match_parent"
+					                    android:layout_height="wrap_content"
+					                    style="@style/list_friend_email" />
+
+                <TextView
+					                    android:id="@+id/lblCell"
+					                    tools:text="The cell value"
+					                    android:layout_width="match_parent"
+					                    android:layout_height="wrap_content"
+					                    style="@style/list_friend_cell" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
+</script></code></pre>
+				<br />
+				Recordemos que en la ingeniería de software la reutilización de código toma un papel muy importante. El requerimiento de mostrar un listado de amigos obtenidos remotamente es similar a la funcionalidad que definimos para mostrar el listado de amigos locales. Por ende, reutilicemos cada una de las clases definidas.
+				<br />
+				<br />
+				5 - Modifiquemos la clase <span>FriendsAdapter.java</span> para que ahora reciba el id del layout a utilizar dentro del recycler view.
+				<pre><code class="language-java"><script type="prism-java">    /* more code here */
+	
+	private final int layoutId;
+	
+	/* more code here */
+	
+	public FriendsAdapter(Context context, List<Friend> friends, @LayoutRes int layoutId) {
+        this.context = context;
+        this.layoutId = layoutId;
+        this.friends = friends;
+    }
+
+    @Override
+    public FriendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(layoutId, parent, false);
+        return new FriendViewHolder(view);
+    }
+
+    /* more code here */
+</script></code></pre>
+				6 - Actualicemos la instancia del adaptador en la clase <span>LocalFriendListFragment.java</span>  para indicar que utilizaremos el layout <span>item_view_friend.xml</span>
+				<pre><code class="language-java"><script type="prism-java">    /* more code here */
+
+    private void setRecyclerView(List<Friend> friends) {
+        adapter = new FriendsAdapter(getActivity(), friends, R.layout.item_view_friend);
+        rvFriends.setAdapter(adapter);
+        rvFriends.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvFriends.setHasFixedSize(true);
+        rvFriends.addItemDecoration(new DividerItemDecoration(getActivity()));
+    }
+
+    /* more code here */
+</script></code></pre>
+				7 - Actualicemos la instancia del adaptador en la clase <span>RemoteFriendListFragment.java</span> para indicar que utilizaremos el layout <span>card_view_friend.xml</span>
+				<pre><code class="language-java"><script type="prism-java">    /* more code here */
+
+	private void setRecyclerView(List<Friend> friends) {
+        adapter = new FriendsAdapter(getActivity(), friends, R.layout.card_view_friend);
+        rvFriends.setAdapter(adapter);
+        rvFriends.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvFriends.setHasFixedSize(true);
+    }
+
+	/* more code here */
+</script></code></pre>
+				<br />
+                <span style="color: #e91e63;">- It's time to run the project & test it-</span>
+                <div class="content-picture-container">
+                    <img class="content-picture wow zoomIn" src="images/ws/2-ws.png" alt=""/>
+                </div>
+                8 - Ahora, llevemos la reutilización de código a nivel del presentador, para ello refactoricemos la clase <span>FriendsPresenter.java</span> para definir dos métodos que nos permitan obtener el origen de datos de forma local o remoto. Obteniendo como resultado el siguiente contenido:                
+                <pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.presenter;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import mx.hercarr.hercarrdroid.model.Friend;
+import mx.hercarr.hercarrdroid.rest.RandomUserApi;
+import mx.hercarr.hercarrdroid.util.Constants;
+import mx.hercarr.hercarrdroid.view.IFriendsView;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class FriendsPresenter {
+
+    private IFriendsView view;
+
+    public FriendsPresenter(IFriendsView view) {
+        this.view = view;
+    }
+
+    public void findLocalFriends() {
+        List<Friend> friends = new ArrayList<>();
+
+        Friend alberto = new Friend();
+        alberto.setFirstName("Alberto");
+        alberto.setLastName("Carrasco");
+        alberto.setEmail("alberto.carrasco@gmail.com");
+        alberto.setCell("5587345678");
+        alberto.setPicture("https://s3.amazonaws.com/uifaces/faces/twitter/mghoz/128.jpg");
+        friends.add(alberto);
+
+        Friend david = new Friend();
+        david.setFirstName("David");
+        david.setLastName("Torres");
+        david.setEmail("david.torres@gmail.com");
+        david.setCell("5673342398");
+        david.setPicture("https://s3.amazonaws.com/uifaces/faces/twitter/sauro/128.jpg");
+        friends.add(david);
+
+        Friend fatima = new Friend();
+        fatima.setFirstName("Fatima");
+        fatima.setLastName("Torruco");
+        fatima.setEmail("fatima.torruco@gmail.com");
+        fatima.setCell("5598020305");
+        fatima.setPicture("https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg");
+        friends.add(fatima);
+
+        Friend gerardo = new Friend();
+        gerardo.setFirstName("Gerardo");
+        gerardo.setLastName("Muñoz");
+        gerardo.setEmail("gerardo.muñoz@gmail.com");
+        gerardo.setCell("5534245576");
+        gerardo.setPicture("https://s3.amazonaws.com/uifaces/faces/twitter/rogie/128.jpg");
+        friends.add(gerardo);
+
+        Friend lila = new Friend();
+        lila.setFirstName("Lila");
+        lila.setLastName("Hernández");
+        lila.setEmail("lila.hernandez@gmail.com");
+        lila.setCell("5512764597");
+        lila.setPicture("https://s3.amazonaws.com/uifaces/faces/twitter/allisongrayce/128.jpg");
+        friends.add(lila);
+
+        Friend noemi = new Friend();
+        noemi.setFirstName("Noemi");
+        noemi.setLastName("Huerta");
+        noemi.setEmail("noemi.huerta@gmail.com");
+        noemi.setCell("5598356784");
+        noemi.setPicture("https://s3.amazonaws.com/uifaces/faces/twitter/jeanniehuang/128.jpg");
+        friends.add(noemi);
+
+        Friend monica = new Friend();
+        monica.setFirstName("Monica");
+        monica.setLastName("Morales");
+        monica.setEmail("monica.morales@gmail.com");
+        noemi.setCell("5598753245");
+        monica.setPicture("https://s3.amazonaws.com/uifaces/faces/twitter/chloepark/128.jpg");
+        friends.add(monica);
+
+        view.loadFriendList(friends);
+    }
+
+    public void findRemoteFriends() {
+        List<Friend> friends = new ArrayList<>();
+        if (friends.isEmpty()) {
+            view.showEmptyMessage();
+        } else {
+            view.loadFriendList(friends);
+        }
+    }
+
+}                
+</script></code></pre>				
+				9 - Ahora, actualicemos la invocación de los métodos en cada fragmento correspondiente:
+				<br />
+				<span>LocalFriendListFragment.java</span>
+				<pre><code class="language-java"><script type="prism-java">    /* more code here */
+
+	@Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_local_friend_list, container, false);
+        init(view);
+        presenter.findLocalFriends();
+        return view;
+    }
+
+    /* more code here */
+</script></code></pre>
+				<span>RemoteFriendListFragment.java</span>
+				<pre><code class="language-java"><script type="prism-java">    /* more code here */
+
+	@Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_remote_friend_list, container, false);
+        init(view);
+        presenter.findRemoteFriends();
+        return view;
+    }
+
+    /* more code here */
+</script></code></pre>
+				<br />
+                <span style="color: #e91e63;">- It's time to run the project & test it-</span>
+                <div class="content-picture-container">
+                    <img class="content-picture wow zoomIn" src="images/ws/3-ws.png" alt=""/>
+                </div>
+                Como podemos observar el método findRemoteFriends() temporalmente retorna una lista vacia, esto es correcto ya que en los pasos posteriores aquí será donde invoquemos el Web Service.
+				<br />				
+            </div>
+            <div class="header-col content-header">
+                <h2><span>Configuración de Retrofit</span></h2>                
+            </div>            
+            <div class="row education">
+            	Los pasos de la sección anterior, nos permitieron que al seleccionar la opción Web Service del Navigation Drawer mostremos en pantalla un listado de amigos cargados localmente. Ahora, llego el momento de obtener a estos amigos mediante la invocación de un Web Service, para ello primero se requiere incorporar retrofit al proyecto así como conocer la respuesta del Web Service.
+            	<br />
+            	Para obtener los amigos en forma remota, haremos uso de <a href="https://randomuser.me/" target="_blank">randomuser</a>. Este recurso posee una API libre que nos permite obtener de forma aleatoria información de usuarios. Utilizaremos estos datos para convertir los datos de un usuario en los datos de un Friend.
+            	<br />
+            	Por favor, en nuestro browser realicemos la petición de la siguiente URL <a href="http://api.randomuser.me/?results=50" target="_blank">http://api.randomuser.me/?results=50</a> con el objetivo de conocer el formato de respuesta, el cual utilizaremos más adelante.
+            	<br />
+            	<br />
+            	Ahora realicemos los siguientes pasos para invocar el Web Service y posteriormente mostrar el listado de amigos con la información obtenida.
+            	<br />
+            	1 - Primero es necesario agregar las siguientes dependencias en el archivo <span>build.gradle</span> para disponer de la libreria en nuestro proyecto
+                <pre><code class="language-java"><script type="prism-java">compile 'com.squareup.retrofit2:retrofit:2.0.1'
+compile 'com.squareup.okhttp3:okhttp:3.2.0'
+</script></code></pre>
+				La forma en que retrofit realiza las peticiones a determinado recurso, es mediante la declaración de interfaces en las cuales cada método definido representa una invocación a un recurso u operación del Web Service. Lo que debemos definir son principalente cuatro cosas:
+				<ul>
+					<li>* El método HTTP por el cual se realizará la petición</li>
+					<li>* La URL a la cual hará la petición</li>
+					<li>* El tipo de la respuesta </li>
+					<li>* Y los parámetros requeridos</li>
+				</ul>
+				En nuestro ejemplo, la petición la realizaremos mediante el método GET, como tipo de respuesta será propiamente el cuerpo de la petición y en este momento no contamos con algún parametro. Es importante mencionar que la URL que se especifica dentro de la anotación del método seŕa concatenada a una URL base que definiremos posteriormente.
+				<br />
+				<br />
+				2 - Con base a lo anterior, definamos la interfaz <span>FriendsApi.java</span> la cua encapsulará las operaciones a realizar sobre nuestro recurso Friend (para nuestro ejemplo, solo se requiere la busqueda de amigos)
+				<pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.rest;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.http.GET;
+
+public interface FriendsApi {
+
+    @GET("/?results=50")
+    Call<ResponseBody> findFriends();
+
+}
+</script></code></pre>
+				Comunmente en una aplicación móvil existen diversos recursos, es decir, diversos Web Services en relación a nuestro modelo. Por ello, es una buena práctica contar con una clase de configuración en la cual especifiquemos la configuración básica de retrofit así como definamos cada uno de los servicios a requerir para los diversos recursos.
+				<br />
+				3 - Para nuestro ejemplo, definamos la interfaz <span>RandomUserApi.java</span> en la cual:
+				<ul>
+					<li>* Definamos la URL base</li>
+					<li>* Configuremos la instancia de retrofit</li>
+					<li>* Indiquemos la construcción los servicios necesarios para las peticiones Web</li>
+				</ul>
+				<pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.rest;
+
+import retrofit2.Retrofit;
+
+public class RandomUserApi {
+
+    private static final String URL_BASE = "http://api.randomuser.me";
+    private static Retrofit retrofit;
+    private static FriendsApi friendsApi;
+
+    private RandomUserApi() {
+
+    }
+
+    static {
+        setupRetrofit();
+        setupApis();
+    }
+
+    private static void setupRetrofit() {
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl(URL_BASE);
+        retrofit = builder.build();
+    }
+
+    private static void setupApis() {
+        friendsApi = retrofit.create(FriendsApi.class);
+    }
+
+    public static FriendsApi getFriendsApi() {
+        return friendsApi;
+    }
+
+}
+</script></code></pre>
+				4 - Ahora, es tiempo de invocar el API en el metodo findRemoteFriends del presentador. Por favor implementemos el código siguiente, el objetivo es visualizar que la respuesta que recibimos corresponde al json que observamos en el browser al hacer la petición de la URL antes indicada.
+				<pre><code class="language-java"><script type="prism-java">    /* more code here */
+
+	public void findRemoteFriends() {
+        Call<ResponseBody> call = RandomUserApi.getFriendsApi().findFriends();
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                String json = null;
+                try {
+                    json = response.body().string();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Log.d("RETROFIT", json);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d("RETROFIT", "error!!!");
+            }
+        });
+    }
+
+    /* more code here*/
+</script></code></pre>
+				5 - Modifiquemos la clase <span>RemoteFriendListFragment.java</span> para llamar a la configuración del recycler view una vez cargue la vista
+				<pre><code class="language-java"><script type="prism-java">    /* more code here */
+
+	@Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_remote_friend_list, container, false);
+        init(view);
+        setRecyclerView(null);
+        presenter.findRemoteFriends();
+        return view;
+    }
+
+    /* more code here*/
+</script></code></pre>
+				6 - Modifiquemos la clase <span>FriendsAdapter.java</span> para evitar un crash de la aplicación al intentar mostrar en primera instancia una lista nula (esto debido a que la lista remota se obtendrá una vez se termine la petición HTTP ejecutada en un hilo aparte de la aplicación)
+				<pre><code class="language-java"><script type="prism-java">    /* more code here */
+
+	public FriendsAdapter(Context context, List<Friend> friends, int layoutId) {
+        this.context = context;
+        this.layoutId = layoutId;
+        if (friends != null)
+            this.friends = friends;
+        else
+            this.friends = new ArrayList<>();
+    }
+
+    /* more code here*/
+</script></code></pre>
+				<br />
+                <span style="color: #e91e63;">- It's time to run the project & test it-</span>
+                <div class="content-picture-container">
+                    <img class="content-picture wow zoomIn" src="images/ws/4-ws.png" alt=""/>
+                </div>
+                7 - Ahora, es momento de recuperar la información existente en el json para construir a cada uno de nuestros amigos. Actualicemos la clase <span>FriendsPresenter.java</span> para incorporar un método que nos permita realizar un parser entre la respuesta json obtenida hacia los objetos que requerimos en nuestra lista e invocar este dentro de la respuesta exitosa de la petición http.
+                <pre><code class="language-java"><script type="prism-java">    /* more code here */
+
+	public void findRemoteFriends() {
+        Call<ResponseBody> call = RandomUserApi.getFriendsApi().findFriends();
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                view.loadFriendList(parseRandomUsers(response));
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                view.showEmptyMessage();
+            }
+        });
+    }
+
+    private List<Friend> parseRandomUsers(Response<ResponseBody> response) {
+        String json;
+        List<Friend> friends = new ArrayList<>();
+        try {
+            json = response.body().string();
+            JSONObject jsonResponse = new JSONObject(json);
+            JSONArray jsonUsers = jsonResponse.getJSONArray(Constants.JsonKeys.RESULTS);
+            JSONObject jsonUser;
+            Friend friend;
+            for (int i = 0; i < jsonUsers.length(); i++) {
+                jsonUser = jsonUsers.getJSONObject(i);
+                friend = new Friend();
+                friend.setFirstName(jsonUser.getJSONObject(Constants.JsonKeys.NAME).getString(Constants.JsonKeys.FIRST));
+                friend.setLastName(jsonUser.getJSONObject(Constants.JsonKeys.NAME).getString(Constants.JsonKeys.LAST));
+                friend.setEmail(jsonUser.getString(Constants.JsonKeys.EMAIL));
+                friend.setCell(jsonUser.getString(Constants.JsonKeys.CELL));
+                friend.setPhone(jsonUser.getString(Constants.JsonKeys.PHONE));
+                friend.setPicture(jsonUser.getJSONObject(Constants.JsonKeys.PICTURE).getString(Constants.JsonKeys.MEDIUM));
+                friends.add(friend);
+            }
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+        return friends;
+    }
+
+    /* more code here*/
+</script></code></pre>
+				<br />
+                <span style="color: #e91e63;">- It's time to run the project & test it-</span>
+                <div class="content-picture-container">
+                    <img class="content-picture wow zoomIn" src="images/ws/5-ws.png" alt=""/>
+                </div>                
+            </div>
+            <div class="header-col content-header">
+                <h2><span>mostrar / ocultar toolbar</span></h2>
+            </div>            
+            <div class="row education">
+            	Material Design recomienda implementar ciertos comportamientos en nuestra aplicación al momento de realizar scroll sobre listados, estas comportamientos se definen el siguiente <a href="https://www.google.com/design/spec/patterns/scrolling-techniques.html#scrolling-techniques-scrolling" target="_blank">link</a>.
+            	<br />
+            	Modifiquemos el comportamiento de nuestro toolbar para mostrar u ocultar el mismo cuando el usuario realice scroll sobre la lista de amigos. Para ello se requeire modificar los siguientes dos archivos:
+            	<br />
+            	<br />
+            	1- Modifiquemos la propiedad app:layout_scrollFlags del toolbar definido en el archivo <span>app_bar_main.xml</span>
+            	<pre><code class="language-markup"><script type="prism-markup">    <!-- more code here -->
+
+    <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:layout_scrollFlags="scroll|enterAlways" />
+
+    <!-- more code here -->
+</script></code></pre>
+				<br />
+            	2 - Definamos el color primario al barra de notificaciones ya que de no hacerlo tendremos una transparencia hacia el toolbar, con lo cual aún será visible para el usuario.<span>values-21/style.xml</span>
+            	<pre><code class="language-markup"><script type="prism-markup"><resources>
+
+    <style name="AppTheme.NoActionBar">
+		        <item name="windowActionBar">false</item>
+		        <item name="windowNoTitle">true</item>
+		        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+		        <item name="android:statusBarColor">@android:color/transparent</item>
+    	</style>
+
+</resources>
+</script></code></pre>
+            	<br />
+            	<span style="color: #e91e63;">- It's time to run the project & test it-</span>
+                <div class="content-picture-container">
+                    <img class="content-picture wow zoomIn" src="images/ws/6-ws.png" alt=""/>
+                </div>
             </div>
         </section>
         <!-- section two end -->
