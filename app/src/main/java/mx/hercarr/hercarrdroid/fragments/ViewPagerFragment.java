@@ -39,6 +39,12 @@ public class ViewPagerFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        appBarLayout.removeView(tabLayout);
+    }
+
     private void init(View view) {
         appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appBarLayout);
         viewPager = (ViewPager) view.findViewById(R.id.viewPager);
@@ -48,7 +54,7 @@ public class ViewPagerFragment extends Fragment {
     }
 
     public void setViewPager() {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(LocalFriendListFragment.newInstance());
         adapter.addFragment(RemoteFriendListFragment.newInstance());
         viewPager.setAdapter(adapter);
