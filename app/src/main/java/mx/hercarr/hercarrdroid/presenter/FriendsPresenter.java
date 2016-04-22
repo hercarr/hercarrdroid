@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import mx.hercarr.hercarrdroid.model.Friend;
 import mx.hercarr.hercarrdroid.rest.RandomUserApi;
@@ -88,7 +89,7 @@ public class FriendsPresenter {
     }
 
     public void findRemoteFriends() {
-        Call<ResponseBody> call = RandomUserApi.getFriendsApi().findFriends();
+        Call<ResponseBody> call = RandomUserApi.getFriendsApi().findFriends(getRandomNumberOfFriends());
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -126,6 +127,13 @@ public class FriendsPresenter {
             e.printStackTrace();
         }
         return friends;
+    }
+
+    private int getRandomNumberOfFriends() {
+        int min = 10;
+        int max = 100;
+        int number = new Random().nextInt((max - min) + 1) + min;
+        return number;
     }
 
 }
