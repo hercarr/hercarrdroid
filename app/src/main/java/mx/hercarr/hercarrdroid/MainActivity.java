@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import mx.hercarr.hercarrdroid.activities.LoginActivity;
 import mx.hercarr.hercarrdroid.fragments.LocalFriendListFragment;
 import mx.hercarr.hercarrdroid.fragments.RemoteFriendListFragment;
+import mx.hercarr.hercarrdroid.fragments.ViewPagerFragment;
 import mx.hercarr.hercarrdroid.presenter.LoginPresenter;
 
 public class MainActivity extends AppCompatActivity
@@ -63,7 +64,8 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_web_service:
                 loadFragment(RemoteFriendListFragment.newInstance());
                 break;
-            case R.id.nav_view:
+            case R.id.nav_view_pager:
+                loadFragment(ViewPagerFragment.newInstance());
                 break;
             case R.id.nav_camera:
                 break;
