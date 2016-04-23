@@ -80,7 +80,7 @@
             <h1 class="section-title wow fadeInDown">REST API</h1>            
             <div class="header-col content-header">
                 <h2><span>Consumo de un REST API</span></h2>                
-            </div>            
+            </div>
             <div class="row education">
                 En nuestra aplicación, para realizar la invocación de servicios Web basados en REST utilizaremos <a href="http://square.github.io/retrofit/" target="_blank">retrofit</a>, que es una liberia que nos permite realizar peticiones HTTP en una forma fácil al simplificar las tareas comunes que estan presente en cualquier peticion Web.
                 <br />
@@ -697,6 +697,451 @@ public class RandomUserApi {
             	<span style="color: #e91e63;">- It's time to run the project & test it-</span>
                 <div class="content-picture-container">
                     <img class="content-picture wow zoomIn" src="images/ws/6-ws.png" alt=""/>
+                </div>
+            </div>
+            <div class="header-col content-header">
+                <h2><span>ViewPager</span></h2>
+            </div>
+            <div class="row education">
+	            Es momento de mostrar ambos listados en una sola pantalla, para ello haremos uso del widget <a href="http://developer.android.com/training/animation/screen-slide.html" target="_blank">view pager</a> así como de <a href="http://developer.android.com/reference/android/support/design/widget/TabLayout.html" target="_blank">tab layout</a> los cuales en conjunto nos permite implementar la especificación de <a href="https://www.google.com/design/spec/components/tabs.html#" target="_blank">tabs</a> para así mostrar varios fragmentos a la vez separados por paginas, para esto realicemos lo siguiente:
+	            <br />
+                1 - Generemos el fragmento <span>ViewPagerFragment.java</span> haciendo click en <span>File &rarr; New &rarr; Fragment &rarr; Fragment (Blank)</span> sin seleccionar las opciones <i>Include fragment factory methods</i> e <i>Include interface callbacks</i>. Incorporemos el método newInstance()
+				<pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.fragments;
+
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+
+import mx.hercarr.hercarrdroid.R;
+
+public class ViewPagerFragment extends Fragment {
+
+    public ViewPagerFragment() {
+
+    }
+
+    public static ViewPagerFragment newInstance() {
+        ViewPagerFragment fragment = new ViewPagerFragment();
+        return fragment;
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_view_pager, container, false);
+    }    
+
+}
+</script></code></pre> 
+                2 - Actualicemos la clase <span>MainActivity.java</span> actualizando el método <span>onNavigationItemSelected</span> para mostrar el nuevo fragmento al seleccionar la opción view pager.
+                <pre><code class="language-java"><script type="prism-java">    /* more code here */
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id)  {
+            case R.id.nav_recycler_view:
+                loadFragment(LocalFriendListFragment.newInstance());
+                break;
+            case R.id.nav_web_service:
+                loadFragment(RemoteFriendListFragment.newInstance());
+                break;
+            case R.id.nav_view_pager:
+                loadFragment(ViewPagerFragment.newInstance());
+                break;
+            case R.id.nav_camera:
+                break;
+            case R.id.nav_map:
+                break;
+            case R.id.nav_settings:
+                break;
+            case R.id.nav_logout:
+                logout();
+                break;
+            default:
+                break;
+        }
+        closeDrawer();
+        return true;
+    }
+
+	/* more code here */
+</script></code></pre>
+                3 - Modifiquemos el layout <span>app_bar_main.xml</span> para definir un id al widget AppBarLayout
+                <pre><code class="language-markup"><script type="prism-markup">    <!-- more code here -->
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+    <!-- more code here -->
+</script></code></pre>                 
+                4 - Implementemos en la clase <span>ViewPagerFragment.java</span> lo siguiente:
+                <ul>
+                	<li>* Incorporemos una referencia al widget AppBarLayout</li>
+                	<li>* Instanciemos un widget TabLayout para agregarlo a nuestro AppBarLayout </li>
+                </ul>
+                Obteniendo como resultado lo siguiente:
+                <pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.fragments;
+
+import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import mx.hercarr.hercarrdroid.R;
+
+public class ViewPagerFragment extends Fragment {
+
+    private AppBarLayout appBarLayout;
+    private TabLayout tabLayout;
+
+    public ViewPagerFragment() {
+
+    }
+
+    public static ViewPagerFragment newInstance() {
+        ViewPagerFragment fragment = new ViewPagerFragment();
+        return fragment;
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        init();
+        return inflater.inflate(R.layout.fragment_view_pager, container, false);
+    }
+
+    private void init() {
+        appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appBarLayout);
+        setTabLayout();
+    }
+
+    private void setTabLayout() {
+        AppBarLayout.LayoutParams layoutParams = new AppBarLayout.LayoutParams(AppBarLayout.LayoutParams.MATCH_PARENT, AppBarLayout.LayoutParams.WRAP_CONTENT);
+        tabLayout = new TabLayout(getActivity());
+        tabLayout.setLayoutParams(layoutParams);
+        appBarLayout.addView(tabLayout);
+    }
+
+}
+</script></code></pre>
+				<br />
+                <span style="color: #e91e63;">- It's time to run the project & test it-</span>
+                <div class="content-picture-container">
+                    <img class="content-picture wow zoomIn" src="images/vp/1-vp.png" alt=""/>
+                </div>
+                5 - Descarguemos las iconos correspondientes a las secciones Recycler View y Web Service utilizadadas en el Navigation Drawer pero en color blanco: <a href="https://design.google.com/icons/#ic_list" target="_blank">list icon</a> & <a href="https://design.google.com/icons/#ic_cloud" target="_blank">cloud icon</a>
+                <br />
+                6 - Actualicemos el layout <span>fragment_view_pager.xml</span> para definir el view pager
+                <pre><code class="language-markup"><script type="prism-markup"><FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="mx.hercarr.hercarrdroid.fragments.ViewPagerFragment">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
+
+</FrameLayout>
+</script></code></pre>
+                7 - Actualicemos la clase <span>ViewPagerFragment.java</span> para:
+                <ul>
+                	<li>* Incorporar la referencia del view pager</li>
+                	<li>* Definir la clase interna ViewPagerAdapter la cual administrá los fragmentos a mostrar</li>
+                	<li>* Instanciar la clase ViewPagerAdapter especificando los fragmentos requeridos - LocalFriendListFragment & RemoteFriendListFragment</li>
+                	<li>* Actualizar el elemento TabLayout indicando que estará configurado mediante el view pager</li>
+                	<li>* Configurar los iconos a mostrar en cada uno de los tabs</li>
+                	<li>* Remover el tablayout al salir de la opción View Pager</li>
+                </ul>
+    			<pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.fragments;
+
+import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import mx.hercarr.hercarrdroid.R;
+
+public class ViewPagerFragment extends Fragment {
+
+    private AppBarLayout appBarLayout;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+
+    public ViewPagerFragment() {
+
+    }
+
+    public static ViewPagerFragment newInstance() {
+        ViewPagerFragment fragment = new ViewPagerFragment();
+        return fragment;
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_view_pager, container, false);
+        init(view);
+        return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        appBarLayout.removeView(tabLayout);
+    }
+
+    private void init(View view) {
+        appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.appBarLayout);
+        viewPager = (ViewPager) view.findViewById(R.id.viewPager);
+        setViewPager();
+        setTabLayout();
+        setIcons();
+    }
+
+    public void setViewPager() {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
+        adapter.addFragment(LocalFriendListFragment.newInstance());
+        adapter.addFragment(RemoteFriendListFragment.newInstance());
+        viewPager.setAdapter(adapter);
+    }
+
+    private void setTabLayout() {
+        AppBarLayout.LayoutParams layoutParams = new AppBarLayout.LayoutParams(AppBarLayout.LayoutParams.MATCH_PARENT, AppBarLayout.LayoutParams.WRAP_CONTENT);
+        tabLayout = new TabLayout(getActivity());
+        tabLayout.setLayoutParams(layoutParams);
+        tabLayout.setupWithViewPager(viewPager);
+        appBarLayout.addView(tabLayout);
+    }
+
+    public void setIcons() {
+        tabLayout.getTabAt(0).setIcon(R.mipmap.ic_list_white_24dp);
+        tabLayout.getTabAt(1).setIcon(R.mipmap.ic_cloud_white_24dp);
+    }
+
+    private class ViewPagerAdapter extends FragmentPagerAdapter {
+
+        private List<Fragment> fragments;
+
+        public ViewPagerAdapter(FragmentManager fm) {
+            super(fm);
+            fragments = new ArrayList<>();
+        }
+
+        public void addFragment(Fragment fragment) {
+            fragments.add(fragment);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return fragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return fragments.size();
+        }
+
+    }
+
+}
+</script></code></pre>
+				<br />
+                <span style="color: #e91e63;">- It's time to run the project & test it-</span>
+                <div class="content-picture-container">
+                    <img class="content-picture wow zoomIn" src="images/vp/2-vp.png" alt=""/>
+                </div>
+            </div>
+            <div class="header-col content-header">
+                <h2><span>Swipe to refresh</span></h2>
+            </div>
+            <div class="row education">
+            	<a href="http://developer.android.com/training/swipe/add-swipe-interface.html" target="_blank">Swipe to refresh</a> - o pull to refresh como se conoce en otras plataformas - es un gesto aplicado a la interfaz de usuario que sirve para actualizar el contenido de una lista cuando el usuario desliza la lista hacia abajo. En android el componente que nos permite realizar esta operación es <a href="http://developer.android.com/reference/android/support/v4/widget/SwipeRefreshLayout.html" target="_blank">SwipeRefreshLayout</a>.
+            	<br />
+            	Para incorporar este elemento a nuestra aplicación, modiquemos la consulta de amigos remotos generarando de forma aleatoria la cantidad de resultados a obtener del Web Service, para ello:
+            	<br />
+            	1 - Actualicemos la interfaz <span>FriendsApi.java</span> para solicitar en el método findFriends la cantidad de resultados deseados
+            	<pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.rest;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
+
+public interface FriendsApi {
+
+    @GET("/")
+    Call<ResponseBody> findFriends(@Query("results") int amount);
+
+}
+</script></code></pre>
+				2 - Actualicemos la clase <span>FriendsPresenter.java</span> para especificar la cantidad de resultados a obtener incorporando un método que nos permita obtener de forma aleatoria la cantidad de amigos a buscar
+				<pre><code class="language-java"><script type="prism-java">    /* more code here */
+
+	public void findRemoteFriends() {
+        Call<ResponseBody> call = RandomUserApi.getFriendsApi().findFriends(getRandomNumberOfFriends());
+        /* more code here */
+    }
+
+
+	private int getRandomNumberOfFriends() {
+        int min = 10;
+        int max = 100;
+        int number = new Random().nextInt((max - min) + 1) + min;
+        return number;
+    }
+
+	/* more code here */
+</script></code></pre>
+				3 - Actualicemo el layout <span>fragment_remote_friends_list.xml para incorporar el elemento SwipeRefreshLayout</span>
+				el cual debe envolver al recycler view
+				<pre><code class="language-markup"><script type="prism-markup">    <!-- more code here -->
+
+	<android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srlRemoteFriends"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvFriends"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+	<!-- more code here -->
+</script></code></pre>
+				4 - Actualicemos la clase <span>RemoteFriendListFragment.java</span> para:
+				<ul>
+					<li>* Incorporar la referencia al SwipeRefreshLayout</li>
+					<li>* Configurar el SwipeRefreshLayout para invocar el método findRemoteFriends() del presentador al hacer swipe sobre el listado</li>
+					<li>* Configuremos los colores a mostar en el indicador de progreso</li>
+					<li>* Actualizar el método loadFriendList para ocultar el indicador de progreso del SwipeRefreshLayout cuando la lista de amigos ha sido cargada nuevamente</li>
+				</ul>
+				<pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.fragments;
+
+import android.graphics.Color;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import java.util.List;
+
+import mx.hercarr.hercarrdroid.R;
+import mx.hercarr.hercarrdroid.adapters.FriendsAdapter;
+import mx.hercarr.hercarrdroid.model.Friend;
+import mx.hercarr.hercarrdroid.presenter.FriendsPresenter;
+import mx.hercarr.hercarrdroid.view.IFriendsView;
+
+public class RemoteFriendListFragment extends Fragment
+    implements IFriendsView {
+
+    private FriendsPresenter presenter;
+
+    private RecyclerView rvFriends;
+    private TextView lblEmptyFriends;
+    private SwipeRefreshLayout srlRemoteFriends;
+
+    private FriendsAdapter adapter;
+
+
+    public RemoteFriendListFragment() {
+
+    }
+
+    public static RemoteFriendListFragment newInstance() {
+        RemoteFriendListFragment fragment = new RemoteFriendListFragment();
+        return fragment;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_remote_friend_list, container, false);
+        init(view);
+        presenter.findRemoteFriends();
+        return view;
+    }
+
+    @Override
+    public void loadFriendList(List<Friend> friends) {
+        rvFriends.setVisibility(View.VISIBLE);
+        lblEmptyFriends.setVisibility(View.GONE);
+        setRecyclerView(friends);
+        if (srlRemoteFriends.isRefreshing()) {
+            srlRemoteFriends.setRefreshing(false);
+        }
+    }
+
+    @Override
+    public void showEmptyMessage() {
+        rvFriends.setVisibility(View.GONE);
+        lblEmptyFriends.setVisibility(View.VISIBLE);
+    }
+
+    private void init(View view) {
+        presenter = new FriendsPresenter(this);
+        rvFriends = (RecyclerView) view.findViewById(R.id.rvFriends);
+        lblEmptyFriends = (TextView) view.findViewById(R.id.lblEmptyFriends);
+        srlRemoteFriends = (SwipeRefreshLayout) view.findViewById(R.id.srlRemoteFriends);
+        setRecyclerView(null);
+        setSwipeRefreshLayout();
+    }
+
+    private void setRecyclerView(List<Friend> friends) {
+        adapter = new FriendsAdapter(getActivity(), friends, R.layout.card_view_friend);
+        rvFriends.setAdapter(adapter);
+        rvFriends.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvFriends.setHasFixedSize(true);
+    }
+
+    private void setSwipeRefreshLayout() {
+        srlRemoteFriends.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.findRemoteFriends();
+            }
+        });
+        srlRemoteFriends.setColorSchemeColors(
+                ContextCompat.getColor(getActivity(), R.color.primary_dark),
+                ContextCompat.getColor(getActivity(), R.color.accent),
+                ContextCompat.getColor(getActivity(), R.color.primary_dark)
+        );
+    }
+
+}				
+</script></code></pre>
+				<br />
+                <span style="color: #e91e63;">- It's time to run the project & test it-</span>
+                <div class="content-picture-container">
+                    <img class="content-picture wow zoomIn" src="images/vp/3-vp.png" alt=""/>
                 </div>
             </div>
         </section>
