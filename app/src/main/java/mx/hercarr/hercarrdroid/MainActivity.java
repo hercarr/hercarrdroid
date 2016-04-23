@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import mx.hercarr.hercarrdroid.activities.LoginActivity;
+import mx.hercarr.hercarrdroid.fragments.CameraFragment;
 import mx.hercarr.hercarrdroid.fragments.LocalFriendListFragment;
 import mx.hercarr.hercarrdroid.fragments.RemoteFriendListFragment;
 import mx.hercarr.hercarrdroid.fragments.ViewPagerFragment;
@@ -30,7 +31,6 @@ public class MainActivity extends AppCompatActivity
         validateSession();
         setToolbar();
         setNavigationDrawer();
-        /* TODO - here verify the local user */
     }
 
     @Override
@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity
                 loadFragment(ViewPagerFragment.newInstance());
                 break;
             case R.id.nav_camera:
+                loadFragment(CameraFragment.newInstance());
                 break;
             case R.id.nav_map:
                 break;

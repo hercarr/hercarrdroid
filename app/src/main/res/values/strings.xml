@@ -33,4 +33,12 @@
     <string name="msg_register_empty_fields">Please, fill the required fields!</string>
     <!-- friends layout -->
     <string name="msg_empty_friends">You don\'t have friends yet.</string>
+    <!-- camera layout -->
+    <string name="action_camera">Camera</string>
+    <string name="action_gallery">Gallery</string>
+    <string name="take_photo_camera">Take photo with camera</string>
+    <string name="take_photo_gallery">Select photo from gallery</string>
+    <string name="msg_allow_take_picture">It\'s necessary allow to take pictures</string>
+    <!-- general actions -->
+    <string name="ok">Ok</string>
 </resources>
