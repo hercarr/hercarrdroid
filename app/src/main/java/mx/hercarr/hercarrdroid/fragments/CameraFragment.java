@@ -35,9 +35,11 @@ public class CameraFragment extends Fragment {
     private static final int REQUEST_IMAGE_CAPTURE_CODE = 1;
     private static final String FOLDER_IMAGE_NAME = "camera";
 
+    private Uri imageUri;
     public String photoFileName;
     private ImageView imgPhoto;
     private View view;
+    private MenuItem shareMenuItem;
 
     public CameraFragment() {
 
@@ -59,6 +61,7 @@ public class CameraFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_camera, menu);
+        shareMenuItem = menu.findItem(R.id.action_share);
     }
 
     @Override
@@ -67,6 +70,9 @@ public class CameraFragment extends Fragment {
         switch (id) {
             case R.id.action_camera :
                 showCamera();
+                break;
+            case R.id.action_share :
+                shareImage();
                 break;
             default :
                 return super.onOptionsItemSelected(item);
@@ -77,9 +83,10 @@ public class CameraFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE_CODE && resultCode == Activity.RESULT_OK) {
-            Uri uri = getPhotoFileUri();
-            Bitmap bitmap = rotateBitmapOrientation(uri.getPath());
+            imageUri = getPhotoFileUri();
+            Bitmap bitmap = rotateBitmapOrientation(imageUri.getPath());
             imgPhoto.setImageBitmap(bitmap);
+            shareMenuItem.setVisible(true);
         }
     }
 
@@ -145,6 +152,16 @@ public class CameraFragment extends Fragment {
         matrix.setRotate(rotationAngle, (float) bm.getWidth() / 2, (float) bm.getHeight() / 2);
         Bitmap rotatedBitmap = Bitmap.createBitmap(bm, 0, 0, bounds.outWidth, bounds.outHeight, matrix, true);
         return rotatedBitmap;
+    }
+
+    public void shareImage() {
+        if (imageUri != null) {
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+            shareIntent.setType("image/jpeg");
+            startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.msg_share_image)));
+        }
     }
 
 }
