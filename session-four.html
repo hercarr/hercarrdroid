@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+    <!--[if lt IE 8 ]><html class="no-js ie ie7" lang="en"> <![endif]-->
+    <!--[if IE 8 ]><html class="no-js ie ie8" lang="en"> <![endif]-->
+    <!--[if (gte IE 8)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+    <head>
+        <!--- basic page needs -->
+        <meta charset="utf-8">
+        <title>hercarrdroid</title>
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <!-- mobile specific metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <!-- css -->
+        <link rel="stylesheet" href="css/default.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/responsive.css">
+        <link rel="stylesheet" href="css/animate.css">
+        <link href="css/prism.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/owl.carousel.css">
+        <link rel="stylesheet" href="css/owl.theme.css">
+        <!-- script -->
+        <script src="js/modernizr.js"></script>
+       <!-- favicons -->
+        <link rel="shortcut icon" href="images/qacg.ico" >
+    </head>
+    <body>
+        <!-- preloader --> 
+        <div id="preloader">
+            <div class="loader"></div>    
+        </div>
+        <!--preloader end-->
+        <!-- header section -->
+        <header id="home">
+            <nav id="m-nav">
+                <a class="mobile-btn" href="#m-nav" title="Show navigation">Show navigation</a>
+                <a class="mobile-btn" href="#" title="Hide navigation">Hide navigation</a>
+                <ul id="nav" class="nav">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="session-one.html">Sesi&oacute;n # 1</a></li>
+                    <li><a href="session-two.html">Sesi&oacute;n # 2</a></li>
+                    <li><a href="session-three.html">Sesi&oacute;n # 3</a></li>
+                    <li class="current"><a class="smoothscroll" href="#agenda">Sesi&oacute;n # 4</a></li>
+                 </ul>
+            </nav> 
+            <div class="row banner">
+                <div class="banner-text">
+                    <h1 class="responsive-headline wow zoomIn">Interacción</span></h1>
+                    <h3 class="wow fadeInUp">
+                        Sesi&oacute;n # 4
+                    </h3>
+                    <hr />
+                    <h3 class="wow fadeInUp">Quality &amp; Knowledge on IT Services</h3>
+                    <h3 class="wow fadeInUp">Víctor Hernández</h3>
+                    <h3 class="wow fadeInUp">victor.hernandez@qacg.com | hercarr.mx@gmail.com</h3>
+                    <h3 class="wow fadeInUp"><span style="font-size: .6em;">Sí lo requieres, descarga la versión del proyecto de la sesión anterior</span></h3>
+                    <hr />
+                </div>
+                <p align="center" style="margin-top: -14px;">                                        
+                    <a href="https://github.com/hercarr/hercarrdroid/archive/v1.5.zip" class="button" target="_blank"><i class="fa fa-download"></i> Descargar</a>
+                </p>
+            </div>
+            <p class="scrolldown">
+                <a class="smoothscroll" href="#about"><i class="fa fa-angle-double-down"></i></a>
+            </p>
+            <div class="header-overlay"></div>
+            <!-- social section -->
+            <div id="social">
+                <div class="row social-container">
+                    <ul class="social">                       
+                       <li><a href="https://twitter.com/hercarrmx" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                       <li><a href="https://www.facebook.com/hercarrmx" target="_blank"><i class="fa fa-facebook"></i></a></li>                       
+                       <li><a href="https://github.com/hercarr" target="_blank"><i class="fa fa-github"></i></a></li>                       
+                    </ul>
+                </div
+            </div>
+            <!-- social end -->
+        </header>
+        <!-- header end -->
+        <!-- section two start -->
+        <section id="agenda">           
+            <h1 class="section-title wow fadeInDown">Interacción</h1>            
+            <div class="header-col content-header">
+                <h2><span>Cámara</span></h2>
+            </div>            
+            <div class="row education">  
+                La cámara fotográfica es uno de las características físicas del teléfono más utilizadas. Incorporemos en nuestra aplicación el uso de la camára realizando lo siguiente:
+                <br />
+                <span>Nota: Para los siguientes pasos se recomienda ejecutar la aplicación directamente en un dispositivo físico en ligar del simulador</span>
+                <br />
+                1 - Generemos el fragmento <span>CameraFragment.java</span> haciendo click en <span>File &rarr; New &rarr; Fragment &rarr; Fragment (Blank)</span> sin seleccionar las opciones <i>Include fragment factory methods</i> e <i>Include interface callbacks</i>
+                <br />
+                2 - Incorporemos un ImageView al layout <span>fragment_camera.xml</span>
+                <pre><code class="language-markup"><script type="prism-markup"><FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="mx.hercarr.hercarrdroid.fragments.CameraFragment">
+
+    <ImageView
+        android:id="@+id/imgPhoto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"/>
+
+</FrameLayout>
+</script></code></pre>
+                3 - Descarguemos el siguiente icono <a href="https://design.google.com/icons/#ic_camera" target="_blank">ic_camera</a> para representar la opción del menú qus nos permitirá invocar a la cámara
+                <br />
+                4 - Definamos el menú <span>menu_camera.xml</span> para incorporar la opción de captura de foto utilizando el icono anterior
+                <pre><code class="language-markup"><script type="prism-markup"><menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="mx.hercarr.hercarrdroid.MainActivity">
+
+    <item
+            android:id="@+id/action_camera"
+            android:orderInCategory="100"
+            android:title="@string/action_camera"
+            android:icon="@mipmap/ic_camera_white_24dp"
+            app:showAsAction="always" />
+
+</menu>
+</script></code></pre>
+                5 - Actualicemos la clase <span>CameraFragment.java</span> para incorporar el metodo factory y configurar el menú
+                <pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.fragments;
+
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import mx.hercarr.hercarrdroid.R;
+
+public class CameraFragment extends Fragment {
+
+
+    public CameraFragment() {
+
+    }
+
+    public static CameraFragment newInstance() {
+        CameraFragment fragment = new CameraFragment();
+        return fragment;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        return inflater.inflate(R.layout.fragment_camera, container, false);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_camera, menu);
+    }
+    
+}
+</script></code></pre>
+                6 - Actualicemos la clase <span>MainActivity.java</span> modificando el método <span>onNavigationItemSelected</span> para mostrar el nuevo fragmento al seleccionar la opción camera
+                <pre><code class="language-java"><script type="prism-java">    /* more code here */
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id)  {
+            case R.id.nav_recycler_view:
+                loadFragment(LocalFriendListFragment.newInstance());
+                break;
+            case R.id.nav_web_service:
+                loadFragment(RemoteFriendListFragment.newInstance());
+                break;
+            case R.id.nav_view_pager:
+                loadFragment(ViewPagerFragment.newInstance());
+                break;
+            case R.id.nav_camera:
+                loadFragment(CameraFragment.newInstance());
+                break;
+            case R.id.nav_map:
+                break;
+            case R.id.nav_settings:
+                break;
+            case R.id.nav_logout:
+                logout();
+                break;
+            default:
+                break;
+        }
+        closeDrawer();
+        return true;
+    }
+
+    /* more code here */
+</script></code></pre>
+                <br />
+                <span style="color: #e91e63;">- It's time to run the project & test it-</span>
+                <div class="content-picture-container">
+                    <img class="content-picture wow zoomIn" src="images/camera/1-camera.png" alt="" height="50%" width="50%" />
+                </div>                
+                7 - Ahora para incorporar el uso de la cámara es necesario especificar los siguientes permisos en el archivo <span>AndroidManifest.xml</span>
+                <pre><code class="language-markup"><script type="prism-markup">    <!-- more code here -->
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
+
+    <!-- more code here -->
+</script></code></pre>                                    
+                8 - Actualicemos la clase <span>CameraFragment.java</span> para:
+                    <ul>
+                        <li>* Definir los codigos de petición para el uso de la cámara así como la captura de fotos</li>
+                        <li>* Definir las referencias para el nombre del archivo, el image view así como la vista del fragment</li>
+                        <li>* Mostrar la cámara al seleccionar la opción del menú, considerando que para dispositivos con Android Marshmallow se requiere solicitar los permisos en tiempo de ejecución</li>
+                        <li>* Definir la ubicación en la cual se almacenará la imagen - la cual será una carpeta interna de la aplicación</li>
+                        <li>* Mostrar la imagen una vez se tome la foto</li>
+                    </ul>
+                    <pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.fragments;
+
+import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import java.io.File;
+import java.util.Calendar;
+
+import mx.hercarr.hercarrdroid.R;
+
+public class CameraFragment extends Fragment {
+
+    private static final int REQUEST_CAMERA_CODE = 0;
+    private static final int REQUEST_IMAGE_CAPTURE_CODE = 1;
+    private static final String FOLDER_IMAGE_NAME = "camera";
+
+    public String photoFileName;
+    private ImageView imgPhoto;
+    private View view;
+
+    public CameraFragment() {
+
+    }
+
+    public static CameraFragment newInstance() {
+        CameraFragment fragment = new CameraFragment();
+        return fragment;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_camera, container, false);
+        imgPhoto = (ImageView) view.findViewById(R.id.imgPhoto);
+        setHasOptionsMenu(true);
+        return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_camera, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_camera :
+                showCamera();
+                break;            
+            default :
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE_CODE && resultCode == Activity.RESULT_OK) {
+            Uri uri = getPhotoFileUri();
+            imgPhoto.setImageURI(uri);
+        }
+    }
+
+    private void showCamera() {
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.CAMERA)) {
+                Snackbar.make(view, getString(R.string.msg_allow_take_picture), Snackbar.LENGTH_INDEFINITE)
+                        .setAction(getString(R.string.ok), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_CODE);
+                            }
+                        })
+                        .show();
+            } else {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_CODE);
+            }
+        } else {
+            photoFileName = String.valueOf(Calendar.getInstance().getTimeInMillis()) + ".jpg";
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, getPhotoFileUri());
+            if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE_CODE);
+            }
+        }
+    }
+
+    public Uri getPhotoFileUri() {
+        if (isExternalStorageAvailable()) {
+            File mediaStorageDir = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), FOLDER_IMAGE_NAME);
+            if (!mediaStorageDir.exists()) {
+                mediaStorageDir.mkdirs();
+            }
+            return Uri.fromFile(new File(mediaStorageDir.getPath() + File.separator + photoFileName));
+        }
+        return null;
+    }
+
+    private boolean isExternalStorageAvailable() {
+        String state = Environment.getExternalStorageState();
+        return state.equals(Environment.MEDIA_MOUNTED);
+    }
+
+}
+</script></code></pre>
+                <br />
+                <span style="color: #e91e63;">- It's time to run the project & test it-</span>
+                <div class="content-picture-container">
+                    <img class="content-picture wow zoomIn" src="images/camera/2-camera.png" alt="" height="50%" width="50%"/>
+                </div>
+                9 - Ahora, actualicemos la clase <span>CameraFragment.java</span> para corregir que la foto no se muestre rotada, para ello incorporemos el método que nos permita rotar la imagen sí es necesario
+                <pre><code class="language-java"><script type="prism-java">    /* more code here */
+
+    public Bitmap rotateBitmapOrientation(String photoFilePath) {
+        BitmapFactory.Options bounds = new BitmapFactory.Options();
+        bounds.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(photoFilePath, bounds);
+        BitmapFactory.Options opts = new BitmapFactory.Options();
+        Bitmap bm = BitmapFactory.decodeFile(photoFilePath, opts);
+        ExifInterface exif = null;
+        try {
+            exif = new ExifInterface(photoFilePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
+        int orientation = orientString != null ? Integer.parseInt(orientString) : ExifInterface.ORIENTATION_NORMAL;
+        int rotationAngle = 0;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_180) rotationAngle = 180;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_270) rotationAngle = 270;
+        Matrix matrix = new Matrix();
+        matrix.setRotate(rotationAngle, (float) bm.getWidth() / 2, (float) bm.getHeight() / 2);
+        Bitmap rotatedBitmap = Bitmap.createBitmap(bm, 0, 0, bounds.outWidth, bounds.outHeight, matrix, true);
+        return rotatedBitmap;
+    }
+
+    /* more code here */                
+</script></code></pre>
+                10 - Y en la misma clase contruyamos un Bitmap utilizando el método anterior, para que la imagen se rote en caso de ser necesario, este bitmap será el source del image view
+                <pre><code class="language-java"><script type="prism-java">    /* more code here */
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE_CODE && resultCode == Activity.RESULT_OK) {
+            Uri uri = getPhotoFileUri();
+            Bitmap bitmap = rotateBitmapOrientation(uri.getPath());
+            imgPhoto.setImageBitmap(bitmap);
+        }
+    }
+
+    /* more code here */                
+</script></code></pre>
+                <br />
+                <span style="color: #e91e63;">- It's time to run the project & test it-</span>
+                <div class="content-picture-container">
+                    <img class="content-picture wow zoomIn" src="images/camera/3-camera.png" alt="" height="50%" width="50%"/>
+                </div>
+            </div>
+
+            <!-- poner la seccion de extras y ahi poner los links de internes & cursos -->
+        </section>
+        <!-- section two end -->
+        <!-- footer -->
+        <footer>
+            <div class="row">
+                <div class="twelve columns">
+                    <ul class="social-links">
+                        <li><a href="https://twitter.com/hercarrmx" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="https://www.facebook.com/hercarrmx" target="_blank"><i class="fa fa-facebook"></i></a></li>                        
+                        <li><a href="https://github.com/hercarr" target="_blank"><i class="fa fa-github"></i></a></li>
+                    </ul>
+                    <ul class="copyright">
+                        <li>hercarr.mx@gmail.com | 2016 | Ciudad de M&eacute;xico</li>
+                    </ul>
+                </div>
+                <div id="go-top"><a class="smoothscroll" title="Back to Top" href="#home"><i class="fa fa-chevron-up"></i></a></div>
+            </div>
+        </footer>
+        <!-- footer end-->
+        <!-- java script -->
+        <script src="js/jquery-2.1.1.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/waypoints.js"></script>
+        <script src="js/jquery.fittext.js"></script>
+        <script src="js/wow.min.js"></script>
+        <script src="js/jquery.nicescroll.min.js"></script>
+        <script src="js/prism.js"></script>
+        <script src="js/script.js"></script>
+    </body>
+</html>
