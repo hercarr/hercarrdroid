@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import mx.hercarr.hercarrdroid.activities.LoginActivity;
 import mx.hercarr.hercarrdroid.fragments.CameraFragment;
 import mx.hercarr.hercarrdroid.fragments.LocalFriendListFragment;
+import mx.hercarr.hercarrdroid.fragments.MapFragment;
 import mx.hercarr.hercarrdroid.fragments.RemoteFriendListFragment;
 import mx.hercarr.hercarrdroid.fragments.ViewPagerFragment;
 import mx.hercarr.hercarrdroid.presenter.LoginPresenter;
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity
                 loadFragment(CameraFragment.newInstance());
                 break;
             case R.id.nav_map:
+                loadFragment(MapFragment.newInstance());
                 break;
             case R.id.nav_settings:
                 break;

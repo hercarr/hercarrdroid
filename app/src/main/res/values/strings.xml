@@ -42,4 +42,5 @@
     <string name="msg_share_image">Share image with</string>
     <!-- general actions -->
     <string name="ok">Ok</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAvFk6vdBeDPnzClF9rr2bFK33DYR_Nj8k</string>
 </resources>
