@@ -394,17 +394,214 @@ public class CameraFragment extends Fragment {
                     <img class="content-picture wow zoomIn" src="images/camera/3-camera.png" alt="" height="50%" width="50%"/>
                 </div>
             </div>
+            <div class="header-col content-header">
+                <h2><span>Share content</span></h2>
+            </div>            
+            <div class="row education">  
+                Ahor que ya tenemos la tomada con la cámara fotográfica vamos a compartir esta mediante las aplicaciones instaladas en nuestro dispositivo: facebook, twitter, whatsapp, gmail, por mencionar algunas. Para ello realicemos lo siguiente:
+                1 - Descarguemos el <a href="https://design.google.com/icons/#ic_share" target="_blank">icono</a> correspondiente para indicar la acción de compartir una vez capturada la foto
+                <br />
+                2 - Actualicemos el menu <span>menu_camera.xml</span> para incorporar la opción de compartir
+                <pre><code class="language-markup"><script type="prism-markup"><menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="mx.hercarr.hercarrdroid.MainActivity">
+
+    <item
+        android:id="@+id/action_camera"
+        android:orderInCategory="100"
+        android:title="@string/action_camera"
+        android:icon="@mipmap/ic_camera_white_24dp"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_share"
+        android:orderInCategory="100"
+        android:title="@string/action_share"
+        android:icon="@mipmap/ic_share_white_24dp"
+        app:showAsAction="always"
+        android:visible="false" />
+
+</menu>
+</script></code></pre>
+                3 - Actualicemos la clase <span>CameraFragment.java</span> para que:
+                <ul>
+                    <li>Obtengamos al referencia de la opción de menú compartir</li>
+                    <li>Una vez capturada la foto mostremos la opción de menú compartir</li>
+                    <li>Al seleccionar la opción de menú compartir invocar un intent que permitirá compartir la foto con otras aplicaciones</li>
+                </ul>
+                Lo anterior nos da como resultado:
+                <pre><code class="language-java"><script type="prism-java">package mx.hercarr.hercarrdroid.fragments;
+
+import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Calendar;
+
+import mx.hercarr.hercarrdroid.R;
+
+public class CameraFragment extends Fragment {
+
+    private static final int REQUEST_CAMERA_CODE = 0;
+    private static final int REQUEST_IMAGE_CAPTURE_CODE = 1;
+    private static final String FOLDER_IMAGE_NAME = "camera";
+
+    private Uri imageUri;
+    public String photoFileName;
+    private ImageView imgPhoto;
+    private View view;
+    private MenuItem shareMenuItem;
+
+    public CameraFragment() {
+
+    }
+
+    public static CameraFragment newInstance() {
+        CameraFragment fragment = new CameraFragment();
+        return fragment;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_camera, container, false);
+        imgPhoto = (ImageView) view.findViewById(R.id.imgPhoto);
+        setHasOptionsMenu(true);
+        return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_camera, menu);
+        shareMenuItem = menu.findItem(R.id.action_share);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_camera :
+                showCamera();
+                break;
+            case R.id.action_share :
+                shareImage();
+                break;
+            default :
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE_CODE && resultCode == Activity.RESULT_OK) {
+            imageUri = getPhotoFileUri();
+            Bitmap bitmap = rotateBitmapOrientation(imageUri.getPath());
+            imgPhoto.setImageBitmap(bitmap);
+            shareMenuItem.setVisible(true);
+        }
+    }
+
+    private void showCamera() {
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.CAMERA)) {
+                Snackbar.make(view, getString(R.string.msg_allow_take_picture), Snackbar.LENGTH_INDEFINITE)
+                        .setAction(getString(R.string.ok), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_CODE);
+                            }
+                        })
+                        .show();
+            } else {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_CODE);
+            }
+        } else {
+            photoFileName = String.valueOf(Calendar.getInstance().getTimeInMillis()) + ".jpg";
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, getPhotoFileUri());
+            if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE_CODE);
+            }
+        }
+    }
+
+    public Uri getPhotoFileUri() {
+        if (isExternalStorageAvailable()) {
+            File mediaStorageDir = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), FOLDER_IMAGE_NAME);
+            if (!mediaStorageDir.exists()) {
+                mediaStorageDir.mkdirs();
+            }
+            return Uri.fromFile(new File(mediaStorageDir.getPath() + File.separator + photoFileName));
+        }
+        return null;
+    }
+
+    private boolean isExternalStorageAvailable() {
+        String state = Environment.getExternalStorageState();
+        return state.equals(Environment.MEDIA_MOUNTED);
+    }
+
+    public Bitmap rotateBitmapOrientation(String photoFilePath) {
+        BitmapFactory.Options bounds = new BitmapFactory.Options();
+        bounds.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(photoFilePath, bounds);
+        BitmapFactory.Options opts = new BitmapFactory.Options();
+        Bitmap bm = BitmapFactory.decodeFile(photoFilePath, opts);
+        ExifInterface exif = null;
+        try {
+            exif = new ExifInterface(photoFilePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
+        int orientation = orientString != null ? Integer.parseInt(orientString) : ExifInterface.ORIENTATION_NORMAL;
+        int rotationAngle = 0;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_180) rotationAngle = 180;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_270) rotationAngle = 270;
+        Matrix matrix = new Matrix();
+        matrix.setRotate(rotationAngle, (float) bm.getWidth() / 2, (float) bm.getHeight() / 2);
+        Bitmap rotatedBitmap = Bitmap.createBitmap(bm, 0, 0, bounds.outWidth, bounds.outHeight, matrix, true);
+        return rotatedBitmap;
+    }
+
+    public void shareImage() {
+        if (imageUri != null) {
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+            shareIntent.setType("image/jpeg");
+            startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.msg_share_image)));
+        }
+    }
+
+}
+</script></code></pre>
+            </div>
 
             <!--
-            
-            share
-
-            - bajar los iconos de share https://design.google.com/icons/#ic_share
-            - agregar la opcion en el menu
-            - sacamos la referencia del menuitem
-            - una vez tomada la foto lo mostramos
-            - agregar el handler del click & metodo shareImage
-
             mapa
 
             - agregar el MapFragment
