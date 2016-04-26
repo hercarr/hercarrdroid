@@ -40,6 +40,7 @@
                     <li><a href="session-two.html">Sesi&oacute;n # 2</a></li>
                     <li><a href="session-three.html">Sesi&oacute;n # 3</a></li>
                     <li class="current"><a class="smoothscroll" href="#agenda">Sesi&oacute;n # 4</a></li>
+                    <li><a href="extras.html">Extras</a></li>
                  </ul>
             </nav> 
             <div class="row banner">
@@ -394,7 +395,40 @@ public class CameraFragment extends Fragment {
                 </div>
             </div>
 
+            <!--
+            
+            share
+
+            - bajar los iconos de share https://design.google.com/icons/#ic_share
+            - agregar la opcion en el menu
+            - sacamos la referencia del menuitem
+            - una vez tomada la foto lo mostramos
+            - agregar el handler del click & metodo shareImage
+
+            mapa
+
+            - agregar el MapFragment
+            - agregamos la dependiencia 
+                compile 'com.google.android.gms:play-services:8.4.0'
+            - configuramos el fragmento como el mapa
+            - modificar la clase mapfragmente para 
+                - tener la instancia del mapa
+                - recuperar el fragmento
+                - implementamos la interfaz OnMapReadyCallback & instanciamos el mapa
+            - configuramos el android manifest
+                <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+                <meta-data
+                    android:name="com.google.android.geo.API_KEY"
+                    android:value="@string/google_maps_key" />
+            - mofificar el navigationdrawer para mostar el mapa
+
+            - asignemos una ubicacion fija
+
+
+            -->
+
             <!-- poner la seccion de extras y ahi poner los links de internes & cursos -->
+            <!-- internacionalización -->
         </section>
         <!-- section two end -->
         <!-- footer -->
