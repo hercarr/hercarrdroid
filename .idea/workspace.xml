@@ -23,7 +23,7 @@
     <option name="TOOL_WINDOW_REGEXP_FILTER" value="false" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="13174e5a-05ec-4c48-be9f-1432103e3811" name="Default" comment="The map option was added">
+    <list default="true" id="13174e5a-05ec-4c48-be9f-1432103e3811" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Hercarrdroid.iws" />
@@ -2485,7 +2485,13 @@
       <option name="project" value="LOCAL" />
       <updated>1461689843818</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="The map option was added">
+      <created>1461689889176</created>
+      <option name="number" value="00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1461689889176</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TodoView">
