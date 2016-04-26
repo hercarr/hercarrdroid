@@ -33,4 +33,14 @@
     <string name="msg_register_empty_fields">Please, fill the required fields!</string>
     <!-- friends layout -->
     <string name="msg_empty_friends">You don\'t have friends yet.</string>
+    <!-- camera layout -->
+    <string name="action_camera">Camera</string>
+    <string name="action_share">Share</string>
+    <string name="take_photo_camera">Take photo with camera</string>
+    <string name="take_photo_gallery">Select photo from gallery</string>
+    <string name="msg_allow_take_picture">It\'s necessary allow to take pictures</string>
+    <string name="msg_share_image">Share image with</string>
+    <!-- general actions -->
+    <string name="ok">Ok</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAvFk6vdBeDPnzClF9rr2bFK33DYR_Nj8k</string>
 </resources>

@@ -2,6 +2,8 @@ package mx.hercarr.hercarrdroid.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,9 +26,9 @@ public class RemoteFriendListFragment extends Fragment
 
     private RecyclerView rvFriends;
     private TextView lblEmptyFriends;
+    private SwipeRefreshLayout srlRemoteFriends;
 
     private FriendsAdapter adapter;
-
 
     public RemoteFriendListFragment() {
 
@@ -41,7 +43,6 @@ public class RemoteFriendListFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_remote_friend_list, container, false);
         init(view);
-        setRecyclerView(null);
         presenter.findRemoteFriends();
         return view;
     }
@@ -51,6 +52,9 @@ public class RemoteFriendListFragment extends Fragment
         rvFriends.setVisibility(View.VISIBLE);
         lblEmptyFriends.setVisibility(View.GONE);
         setRecyclerView(friends);
+        if (srlRemoteFriends.isRefreshing()) {
+            srlRemoteFriends.setRefreshing(false);
+        }
     }
 
     @Override
@@ -63,6 +67,9 @@ public class RemoteFriendListFragment extends Fragment
         presenter = new FriendsPresenter(this);
         rvFriends = (RecyclerView) view.findViewById(R.id.rvFriends);
         lblEmptyFriends = (TextView) view.findViewById(R.id.lblEmptyFriends);
+        srlRemoteFriends = (SwipeRefreshLayout) view.findViewById(R.id.srlRemoteFriends);
+        setRecyclerView(null);
+        setSwipeRefreshLayout();
     }
 
     private void setRecyclerView(List<Friend> friends) {
@@ -70,6 +77,20 @@ public class RemoteFriendListFragment extends Fragment
         rvFriends.setAdapter(adapter);
         rvFriends.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvFriends.setHasFixedSize(true);
+    }
+
+    private void setSwipeRefreshLayout() {
+        srlRemoteFriends.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.findRemoteFriends();
+            }
+        });
+        srlRemoteFriends.setColorSchemeColors(
+                ContextCompat.getColor(getActivity(), R.color.primary_dark),
+                ContextCompat.getColor(getActivity(), R.color.accent),
+                ContextCompat.getColor(getActivity(), R.color.primary_dark)
+        );
     }
 
 }
